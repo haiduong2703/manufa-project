@@ -1,0 +1,68 @@
+// header.scss
+@import '../../sass/variables';
+
+.header-components {
+    display        : flex;
+    justify-content: space-between;
+    flex-direction : column;
+    padding        : 10px;
+    border         : 1px solid $main-color;
+    border-radius  : 10px;
+    margin-bottom  : 30px;
+
+    .breadcrumb {
+        font-size: 14px;
+        color    : #888;
+
+        span {
+            margin-right: 5px;
+        }
+    }
+
+    .container-staff {
+
+        display        : flex;
+        justify-content: space-between;
+        width          : 100%;
+        height         : 60px;
+
+        .page-title {
+            font-size      : 24px;
+            font-weight    : bold;
+            width          : 100px;
+            display        : flex;
+            justify-content: center;
+            align-items    : center;
+            height         : 60px;
+        }
+
+        .user-info {
+            display    : flex;
+            align-items: center;
+            width      : 150px;
+            height     : 60px;
+
+            &:first-child {
+                font-size   : 24px;
+                /* Increase icon size */
+                line-height : 1;
+                /* Adjust line height if necessary */
+                margin-right: 8px;
+                /* Add some spacing if needed */
+            }
+
+            img {
+                width        : 30px;
+                height       : 30px;
+                border-radius: 50%;
+                margin-right : 8px;
+            }
+
+            span {
+                font-size: 14px;
+                color    : #333;
+            }
+        }
+    }
+
+}
