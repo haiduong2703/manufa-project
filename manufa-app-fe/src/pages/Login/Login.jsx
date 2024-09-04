@@ -15,8 +15,8 @@ const Login = () => {
     await getUserByLogin(username, password).then((res) => {
       if (res.checkPass !== false) {
         console.log(res);
-        sessionStorage.setItem("username", res.username);
-        sessionStorage.setItem("checklogin", res.checkpass);
+        sessionStorage.setItem("name", res.name);
+        sessionStorage.setItem("checklogin", res.checkPass);
         //sessionStorage.setItem("username",res.username);
         history.push("/admin");
       }

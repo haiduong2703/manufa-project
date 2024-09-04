@@ -26,12 +26,27 @@ import { changeStatusUser } from "../../api/user";
 import { getAllUser } from "../../api/account";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebaseConfig"; // Đường dẫn tới file firebaseConfig.js
-import { createUser } from "../../api/account";
+import {
+  createUser,
+  updateUser,
+  getStaffById,
+  changeStatusStaff,
+  deletedStaffById,
+} from "../../api/account";
 const AdminUser = () => {
   const [isOpenModalCreate, setIsOpenModalCreate] = useState(false);
   const [isOpenModalEdit, setIsOpenModalEdit] = useState(false);
   const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
   const [stateUser, setStateUser] = useState({
+    name: "",
+    avatarUrl: "",
+    username: "",
+    address: "",
+    phone: "",
+    password: "",
+  });
+  const [stateUserDetail, setStateUserDetail] = useState({
+    id: "",
     name: "",
     avatarUrl: "",
     username: "",
@@ -87,7 +102,7 @@ const AdminUser = () => {
   const [loading, setLoading] = useState(false);
 
   const [downloadURL, setDownloadURL] = useState("");
-
+  let toastShownCreate = false; // Biến cờ để kiểm soát việc hiện toast
   const handleUpload = (e) => {
     const file = e.file.originFileObj; // Lấy file từ sự kiện
     if (file) {
@@ -104,6 +119,12 @@ const AdminUser = () => {
         },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+            if (!toastShownCreate) {
+              toast.success("Tải ảnh lên thành công!", 1000, {
+                position: toast.POSITION.TOP_RIGHT,
+              });
+              toastShownCreate = true; // Đánh dấu là toast đã được hiển thị
+            }
             setDownloadURL(url);
             console.log("File available at", url);
             setStateUser({ ...stateUser, avatarUrl: url });
@@ -113,43 +134,61 @@ const AdminUser = () => {
       );
     }
   };
+  let toastShown = false; // Biến cờ để kiểm soát việc hiện toast
+
+  const handleUploadEdit = (e) => {
+    const file = e.file.originFileObj; // Lấy file từ sự kiện
+    if (file) {
+      const storageRef = ref(storage, `files/${file.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          // Xử lý tiến trình tải lên nếu cần
+        },
+        (error) => {
+          console.error("Upload failed:", error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+            if (!toastShown) {
+              toast.success("Tải ảnh lên thành công!", 1000, {
+                position: toast.POSITION.TOP_RIGHT,
+              });
+              toastShown = true; // Đánh dấu là toast đã được hiển thị
+            }
+            setDownloadURL(url);
+            console.log("File available at", url);
+            setStateUserDetail({ ...stateUserDetail, avatarUrl: url });
+            // Gửi URL này đến server của bạn để lưu vào SQL Server
+          });
+        }
+      );
+    }
+  };
+
   const [form] = Form.useForm();
 
   const handleToggleStatus = async (id, isChecked) => {
     console.log(isChecked);
-    if (isChecked) {
-      await changeStatusUser(id, 2).then((res) => {
-        getListUser();
-      });
-    } else {
-      await changeStatusUser(id, 1).then((res) => {
-        getListUser();
-      });
-    }
-  };
-  const handleOnChangeUpdate = (e) => {
-    console.log(e.target.name);
-    console.log(e.target.value);
-    setStateProductUpdate({
-      ...stateProductDetail,
-      [e.target.name]: e.target.value,
+    await changeStatusStaff(id, isChecked).then((res) => {
+      getListUser();
     });
   };
 
   useEffect(() => {
     // Cập nhật giá trị form với trạng thái mới
     form.setFieldsValue({
-      name: stateProductDetail.name,
-      price: stateProductDetail.price,
-      color: stateProductDetail.color,
-      slug: stateProductDetail.namePath,
-      size: stateProductDetail.size,
-      category: stateProductDetail.idCategory,
-      description: stateProductDetail.description,
-      namePath: stateProductDetail.namePath,
+      name: stateUserDetail.name,
+      password: stateUserDetail.password,
+      username: stateUserDetail.username,
+      address: stateUserDetail.address,
+      phone: stateUserDetail.phone,
+      // /avatarUrl: stateUserDetail.avatarUrl,
       // ... các trường khác
     });
-  }, [stateProductDetail, form]);
+  }, [stateUserDetail, form]);
 
   const columns = [
     {
@@ -258,12 +297,21 @@ const AdminUser = () => {
       [e.target.name]: e.target.value,
     });
   };
-
+  const handleOnChangeEdit = (e) => {
+    setStateUserDetail({
+      ...stateUserDetail,
+      [e.target.name]: e.target.value,
+    });
+  };
   const handleSubmit = async () => {
     console.log(stateUser);
     await createUser(stateUser).then((res) => {
       console.log(res);
       getListUser();
+      toast.success("Thêm nhân viên thành công!", 1000, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      setIsOpenModalCreate(false);
     });
     form.resetFields();
   };
@@ -277,10 +325,10 @@ const AdminUser = () => {
     });
   };
   const handleRemoveProduct = async (record) => {
-    await removeProductById(idProduct)
+    await deletedStaffById(idProduct)
       .then((res) => {
         setIsOpenModalDelete(false);
-        toast.success("Xóa thành công sản phẩm !", 2000, {
+        toast.success("Xóa thành công nhân viên này!", 1000, {
           position: toast.POSITION.TOP_RIGHT,
         });
         getListUser();
@@ -295,65 +343,34 @@ const AdminUser = () => {
       <div style={{ marginTop: 8 }}>Hình đại diện</div>
     </div>
   );
-  const handleUpdateProduct = async () => {
-    const imageUploadFormat = imageUpload.map((item) => {
-      const base64String = item.split(",")[1];
-      return {
-        base64String,
-      };
-    });
-    const imageReq = imageUploadFormat.map((item) => item.base64String);
-    console.log(imageReq);
-    console.log(stateProductUpdate);
-    const data = {
-      id: stateProductUpdate.id,
-      name: stateProductUpdate.name,
-      description: stateProductUpdate.description,
-      price: stateProductUpdate.price,
-      slug: "ao-thun",
-      idCategory: stateProductUpdate.idCategory,
-      idSize: stateProductUpdate.size,
-      idColor: stateProductUpdate.color,
-      base64String: imageReq,
-    };
-    await updateProduct(data).then((res) => {
-      toast.success("Update thành công sản phẩm mới !", {
+  const handleUpdateUser = async () => {
+    console.log(stateUserDetail);
+    await updateUser(stateUserDetail.id, stateUserDetail).then((res) => {
+      toast.success("Cập nhập thông tin nhân viên thành công!", 1000, {
         position: toast.POSITION.TOP_RIGHT,
-        autoClose: 2000,
       });
-      setIsOpenModalEdit(false);
+      console.log(res);
       getListUser();
+      setIsOpenModalEdit(false);
     });
-
-    setStateProduct({
-      title: null,
-      price: null,
-      categorySlug: null,
-      color: [],
-      slug: null,
-      size: [],
-      description: null,
-    });
-    form.resetFields();
   };
-  const handleGetDetailProduct = async (record) => {
-    console.log(record);
-    setIsOpenModalEdit(true);
 
-    await getProductById(record.id).then((res) => {
-      setStateProductDetail({
-        id: res.id,
+  const handleGetDetailProduct = async (record) => {
+    setIsOpenModalEdit(true);
+    await getStaffById(record.id).then((res) => {
+      setDownloadURL(res.avatarUrl);
+      console.log(res);
+      setStateUserDetail({
+        id: res.accountId,
         name: res.name,
-        price: res.price,
-        color: res.idColor,
-        size: res.idSize,
-        idCategory: res.idCategory,
-        namePath: res.namePath,
-        description: res.description,
-        namePath: res.namePath,
+        username: res.username,
+        password: res.password,
+        address: res.address,
+        phone: res.phone,
+        avatarUrl: res.avatarUrl,
       });
     });
-    setIsOpenModalEdit(true);
+    // setIsOpenModalEdit(true);
   };
 
   useEffect(() => {
@@ -374,7 +391,8 @@ const AdminUser = () => {
           open={isOpenModalCreate}
           onOk={handleSubmit}
           onCancel={handleCancel}
-          footer={null}
+          okText="Tạo mới" // Đổi nút OK thành "Tạo mới"
+          cancelText="Hủy bỏ" // Đổi nút Cancel thành "Hủy bỏ"
         >
           <Form
             name="basic"
@@ -499,19 +517,6 @@ const AdminUser = () => {
                 )}
               </Upload>
             </Form.Item>
-            <Form.Item>
-              <Button
-                type="primary"
-                style={{ marginRight: "10px" }}
-                htmlType="submit"
-                onClick={handleSubmit}
-              >
-                Hủy bỏ
-              </Button>
-              <Button type="primary" htmlType="submit" onClick={handleSubmit}>
-                Tạo mới
-              </Button>
-            </Form.Item>
           </Form>
         </ModalComponent>
 
@@ -526,24 +531,26 @@ const AdminUser = () => {
           <LoadingComponent isLoading={false}>
             <div
               style={{ marginTop: "12px", fontWeight: 600, height: "50px" }}
-            >{`Bạn có chắc chắn muốn xóa sản phẩm có name "${isNameUser}" này không?`}</div>
+            >{`Bạn có chắc chắn muốn xóa nhân viên này không này không?`}</div>
           </LoadingComponent>
         </ModalComponent>
 
-        <DrawerComponent
-          title="Thông tin sản phẩm"
+        <ModalComponent
+          title="Thông tin nhân viên"
           open={isOpenModalEdit}
-          onClose={() => {
+          okText="Tạo mới" // Đổi nút OK thành "Tạo mới"
+          cancelText="Hủy bỏ" // Đổi nút Cancel thành "Hủy bỏ"
+          onOk={handleUpdateUser}
+          onCancel={() => {
             setIsOpenModalEdit(false);
             setCheckChange(false);
-            setStateProductDetail({
+            setStateUserDetail({
               name: null,
-              price: null,
-              categorySlug: null,
-              color: [],
-              slug: null,
-              size: [],
-              description: null,
+              avatarUrl: null,
+              username: null,
+              address: null,
+              phone: null,
+              password: null,
             });
             form.resetFields();
           }}
@@ -553,10 +560,10 @@ const AdminUser = () => {
             <Form
               name="basic"
               labelCol={{
-                span: 6,
+                span: 8,
               }}
               wrapperCol={{
-                span: 20,
+                span: 16,
               }}
               style={{
                 maxWidth: 600,
@@ -568,73 +575,116 @@ const AdminUser = () => {
               form={form}
             >
               <Form.Item
-                label="Tên sản phẩm"
+                label="Họ và tên"
                 name="name"
                 rules={[
                   {
                     required: true,
-                    message: "Please input title product!",
+                    message: "Không được bỏ trống Họ và tên",
                   },
                 ]}
               >
                 <InputComponent
-                  value={stateProductUpdate.name}
-                  onChange={handleOnChangeUpdate}
+                  value={stateUser.name}
+                  onChange={handleOnChangeEdit}
                   name="name"
                 />
               </Form.Item>
 
               <Form.Item
-                label="Giá"
-                name="price"
+                label="Tên người dùng"
+                name="username"
                 rules={[
                   {
                     required: true,
-                    message: "Please input price product!",
+                    message: "Không được bỏ trống Tên người dùng",
                   },
                 ]}
               >
                 <InputComponent
-                  value={stateProductUpdate.price}
-                  onChange={handleOnChangeUpdate}
-                  name="price"
+                  value={stateUserDetail.username}
+                  onChange={handleOnChangeEdit}
+                  name="username"
                 />
               </Form.Item>
-
               <Form.Item
-                label="Description"
-                name="description"
+                label="Mật khẩu"
+                name="password"
                 rules={[
                   {
                     required: true,
-                    message: "Please input description product!",
+                    message: "Không được bỏ trống Mật khẩu",
+                  },
+                ]}
+              >
+                <Input.Password
+                  value={stateUserDetail.password}
+                  onChange={handleOnChangeEdit}
+                  name="password"
+                />
+              </Form.Item>
+              <Form.Item
+                label="Địa chỉ"
+                name="address"
+                rules={[
+                  {
+                    required: true,
+                    message: "Không được bỏ trống Địa chỉ",
                   },
                 ]}
               >
                 <InputComponent
-                  value={stateProductUpdate.description}
-                  onChange={handleOnChangeUpdate}
-                  name="description"
+                  value={stateUserDetail.address}
+                  onChange={handleOnChangeEdit}
+                  name="address"
+                />
+              </Form.Item>
+              <Form.Item
+                label="Số điện thoại"
+                name="phone"
+                rules={[
+                  {
+                    required: true,
+                    message: "Không được bỏ trống Số điện thoại",
+                  },
+                ]}
+              >
+                <InputComponent
+                  value={stateUserDetail.phone}
+                  onChange={handleOnChangeEdit}
+                  name="phone"
                 />
               </Form.Item>
 
               <Form.Item
-                wrapperCol={{
-                  offset: 21,
-                  span: 16,
-                }}
+                label="Hình đại diện"
+                name="avatarUrl"
+                valuePropName="fileList"
+                getValueFromEvent={(e) =>
+                  Array.isArray(e) ? e : e && [e.file]
+                }
               >
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  onClick={handleUpdateProduct}
+                <Upload
+                  name="avatarUrl"
+                  listType="picture-card"
+                  className="avatar-uploader"
+                  showUploadList={false}
+                  onChange={(e) => handleUploadEdit(e)}
                 >
-                  Update
-                </Button>
+                  {downloadURL ? (
+                    <img
+                      src={downloadURL}
+                      alt="avatar"
+                      style={{ width: "100px", height: "100px" }}
+                    />
+                  ) : (
+                    uploadButton
+                  )}
+                </Upload>
               </Form.Item>
             </Form>
           </LoadingComponent>
-        </DrawerComponent>
+        </ModalComponent>
 
         <div style={{ marginTop: "20px", width: "75vw" }}>
           <TableComponent
@@ -645,12 +695,12 @@ const AdminUser = () => {
             handleOpenCreate={showModal}
             onRow={(record) => {
               return {
-                onClick: (event) => {
+                onMouseEnter: (event) => {
                   console.log(event);
                   setIsRowSelected(record.id);
                   setIsNameUser(record.name);
 
-                  // setIdProduct(record.id);
+                  setIdProduct(record.id);
                 },
               };
             }}

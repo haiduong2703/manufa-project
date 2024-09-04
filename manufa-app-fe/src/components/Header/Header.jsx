@@ -47,7 +47,7 @@ const Header = (props) => {
               </Tooltip>
             </Dropdown>
           </span>
-          <span>Cô Tuệ</span>
+          <span>{sessionStorage.getItem("name")}</span>
         </div>
       </div>
     </div>
