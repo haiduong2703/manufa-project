@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import AdminOrder from "../../components/AdminOrder/AdminOrder";
 import ImageUpload from "../../components/UploadFiles/UploadFile";
 import logo from "../../assets/images/logo3.png";
+import Login from "../Login/Login";
 
 const Admin = () => {
   const [keySelected, setKeySelected] = useState("");
@@ -30,6 +31,8 @@ const Admin = () => {
         return <AdminProduct />;
       case "order":
         return <AdminOrder />;
+      case "login":
+        return <Login />;
       case "upload":
         return <ImageUpload />;
       case "logout":
@@ -45,8 +48,9 @@ const Admin = () => {
   const items = [
     getItem("Quản lý sản phẩm", "product", <ProductOutlined />),
     getItem("Nhân viên", "user", <UserOutlined />),
+    getItem("Login", "login", <UserOutlined />),
     getItem("Quản lý đơn hàng", "order", <ShoppingCartOutlined />),
-
+    getItem("Upload", "upload", <ShoppingCartOutlined />),
     getItem("Đăng xuất", "logout", <LogoutOutlined />),
   ];
 

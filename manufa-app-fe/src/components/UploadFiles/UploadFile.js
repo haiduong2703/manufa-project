@@ -1,53 +1,47 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { storage } from "../../firebaseConfig"; // Đường dẫn tới file firebaseConfig.js
 
-const ImageUpload = () => {
-    const [selectedFile, setSelectedFile] = useState(null);
-    const [imageUrl, setImageUrl] = useState(null);
-    const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        const reader = new FileReader();
+function FileUpload() {
+    const [file, setFile] = useState(null);
+    const [downloadURL, setDownloadURL] = useState("");
 
-        reader.onloadend = () => {
-            setSelectedFile(reader.result);
-            console.log(reader.result);
-        };
-
-        reader.readAsDataURL(file);
+    const handleFileChange = (e) => {
+        setFile(e.target.files[0]);
     };
 
-    const handleUpload = async () => {
-        try {
-            const response = await axios.post('https://localhost:44324/api/ProductImage/UploadImage/upload', {
-                Base64String: selectedFile.split(',')[1] // Loại bỏ phần prefix của base64 string
-            });
-            // const res = await axios.get("https://localhost:44324/api/Product/GetAll")
-            // console.log(res);
-            console.log('Upload thành công:', response.data);
-            console.log()
-            await axios.get(`https://localhost:44324/api/ProductImage/GetImage/${response.data.filePath}`)
-                .then(res => {
-                    console.log(res.data.imageUrl); // Sử dụng res.data.imageUrl thay vì res.imagePath
-                    setImageUrl("https://" + res.data.imageUrl); // Sử dụng res.data.imageUrl thay vì res.imagePath
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
+    const handleUpload = () => {
+        if (file) {
+            const storageRef = ref(storage, `files/${file.name}`);
+            const uploadTask = uploadBytesResumable(storageRef, file);
 
-        } catch (error) {
-            console.error('Có lỗi xảy ra:', error);
+            uploadTask.on(
+                "state_changed",
+                (snapshot) => {
+                    // Xử lý tiến trình tải lên nếu cần
+                },
+                (error) => {
+                    console.error("Upload failed:", error);
+                },
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+                        setDownloadURL(url);
+                        console.log("File available at", url);
+                        // Gửi URL này đến server của bạn để lưu vào SQL Server
+                    });
+                }
+            );
         }
     };
 
     return (
         <div>
             <input type="file" onChange={handleFileChange} />
-            <button onClick={handleUpload}>Upload Ảnh</button>
-            {imageUrl && (
-                <img src={imageUrl} alt="Uploaded Image" style={{ maxWidth: '20%' }} />
-            )}
+            <button onClick={handleUpload}>Upload</button>
+            {downloadURL && <p>File URL: {downloadURL}</p>}
+            <img src={downloadURL}></img>
         </div>
     );
-};
+}
 
-export default ImageUpload;
+export default FileUpload;

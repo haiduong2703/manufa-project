@@ -1,0 +1,62 @@
+.filter-container {
+    // filter.scss
+    display        : flex;
+    justify-content: space-between;
+
+    .filter {
+        display    : flex;
+        align-items: center;
+        gap        : 10px;
+        margin     : 20px 0;
+
+        label {
+            display    : flex;
+            align-items: center;
+            /* Aligns checkbox and text vertically */
+            font-size  : 12px;
+            /* Uniform font size for all labels */
+            cursor     : pointer;
+            padding    : 2px 5px;
+            /* Adds a bit of padding for better spacing */
+            white-space: nowrap;
+            /* Prevents text from wrapping to maintain a consistent size */
+
+            input[type="checkbox"] {
+                width       : 14px;
+                /* Fixed width for the checkbox */
+                height      : 14px;
+                /* Fixed height for the checkbox */
+                margin-right: 5px;
+                /* Adds space between the checkbox and the text */
+            }
+        }
+
+        button {
+            padding      : 5px 10px;
+            border       : none;
+            border-radius: 5px;
+            cursor       : pointer;
+            transition   : background-color 0.3s;
+
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+
+        .total-btn {
+            background-color: #007bff;
+            color           : #fff;
+        }
+
+        .add-btn {
+            background-color: #28a745;
+            color           : #fff;
+        }
+    }
+
+    .filter-buttons {
+        display        : flex;
+        align-items    : center;
+        justify-content: center;
+    }
+}

@@ -1,46 +1,44 @@
-import { WrapperButton, WrapperHeader, WrapperUpload } from "./styles";
 import TableComponent from "../TableComponent/TableComponent";
-import { Button, Form, Space, Select, Tooltip } from "antd";
-import { useEffect, useRef, useState, useCallback } from "react";
+import { Button, Form, Space, Select, Tooltip, Input } from "antd";
+import { useEffect, useState } from "react";
 import ModalComponent from "../ModalComponent/ModalComponent";
 import InputComponent from "../InputComponent/InputComponent";
 import LoadingComponent from "../LoadingComponent/LoadingComponent";
 import DrawerComponent from "../DrawerComponent/DrawerComponent";
-import { getAllColor } from "../../api/color";
-import { useSelector } from "react-redux";
-import { getAllSize } from "../../api/size";
 import Header from "../Header/Header";
+import "./index.scss";
 import {
   DeleteOutlined,
   EditOutlined,
-  SearchOutlined,
   PlusOutlined,
-  UploadOutlined,
-  PoweroffOutlined,
+  LoadingOutlined,
 } from "@ant-design/icons";
 import { Upload, message, Image } from "antd";
-import axios from "axios";
 import {
-  createProduct,
-  getAllCategory,
-  getAllProduct,
   removeProductById,
   getProductById,
   updateProduct,
 } from "../../api/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Filter from "../Filter/Filter";
-import { useForm } from "antd/es/form/Form";
-import { getAllUser } from "../../api/user";
 import { Switch } from "antd";
 import { changeStatusUser } from "../../api/user";
+import { getAllUser } from "../../api/account";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { storage } from "../../firebaseConfig"; // Đường dẫn tới file firebaseConfig.js
+import { createUser } from "../../api/account";
 const AdminUser = () => {
-  const { Option } = Select;
   const [isOpenModalCreate, setIsOpenModalCreate] = useState(false);
   const [isOpenModalEdit, setIsOpenModalEdit] = useState(false);
   const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
-
+  const [stateUser, setStateUser] = useState({
+    name: "",
+    avatarUrl: "",
+    username: "",
+    address: "",
+    phone: "",
+    password: "",
+  });
   const [stateProduct, setStateProduct] = useState({
     name: "",
     price: "",
@@ -49,7 +47,6 @@ const AdminUser = () => {
     slug: "",
     idCategory: 0,
     size: [],
-
     description: "",
     namePath: [],
   });
@@ -77,48 +74,56 @@ const AdminUser = () => {
     namePath: [],
     description: "",
   });
-  const [category, setCategory] = useState([]);
   const [isRowSelected, setIsRowSelected] = useState("");
   const [isNameUser, setIsNameUser] = useState("");
-  const [size, setSize] = useState([]);
-  const [searchText, setSearchText] = useState("");
-  const [color, setColor] = useState([]);
-  const [searchedColumn, setSearchedColumn] = useState("");
-  const [selectedColors, setSelectedColors] = useState([]);
-  const [imageUrls, setImageUrls] = useState([]);
   const [imageUpload, setImageUpload] = useState([]);
   const [listProduct, setListProduct] = useState([
     { name: "test1" },
     { name: "test2" },
   ]);
-  const [selectCategory, setSelectCategory] = useState(0);
   const [idProduct, setIdProduct] = useState(null);
   const [checkChange, setCheckChange] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const handleSearch = (e) => {
-    e.preventDefault();
+  const [loading, setLoading] = useState(false);
 
-    getListProduct();
+  const [downloadURL, setDownloadURL] = useState("");
+
+  const handleUpload = (e) => {
+    const file = e.file.originFileObj; // Lấy file từ sự kiện
+    if (file) {
+      const storageRef = ref(storage, `files/${file.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          // Xử lý tiến trình tải lên nếu cần
+        },
+        (error) => {
+          console.error("Upload failed:", error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+            setDownloadURL(url);
+            console.log("File available at", url);
+            setStateUser({ ...stateUser, avatarUrl: url });
+            // Gửi URL này đến server của bạn để lưu vào SQL Server
+          });
+        }
+      );
+    }
   };
-  const handleReset = (clearFilters) => {
-    clearFilters();
-    setSearchText("");
-  };
-
-  const user = useSelector((state) => state.user);
-
   const [form] = Form.useForm();
 
   const handleToggleStatus = async (id, isChecked) => {
     console.log(isChecked);
     if (isChecked) {
       await changeStatusUser(id, 2).then((res) => {
-        getListProduct();
+        getListUser();
       });
     } else {
       await changeStatusUser(id, 1).then((res) => {
-        getListProduct();
+        getListUser();
       });
     }
   };
@@ -145,75 +150,54 @@ const AdminUser = () => {
       // ... các trường khác
     });
   }, [stateProductDetail, form]);
-  const renderIcons = () => {
-    return (
-      <div>
-        <DeleteOutlined
-          style={{
-            fontSize: "26px",
-            color: "red",
-            cursor: "pointer",
-            marginRight: "10px",
-          }}
-          onClick={() => {
-            setIsOpenModalDelete(true);
-            setIsOpenModalEdit(true);
-          }}
-        />
-        <EditOutlined
-          style={{ fontSize: "26px", color: "orange", cursor: "pointer" }}
-          onClick={handleGetDetailProduct}
-        />
-      </div>
-    );
-  };
-  const handleEdit = (record) => {
-    console.log(record);
-  };
-  const handleDelete = (record) => {
-    console.log(record);
-  };
+
   const columns = [
     {
       title: "STT",
       dataIndex: "stt",
       key: "stt",
+      width: "5%",
       render: (text, record, index) => index + 1,
+    },
+    {
+      title: "Hình ảnh đại diện",
+      dataIndex: "avatarUrl",
+      render: (avatarUrl) => (
+        <Image.PreviewGroup>
+          <Image
+            src={avatarUrl}
+            width={100}
+            height={100}
+            style={{ marginRight: "20px" }}
+          />
+        </Image.PreviewGroup>
+      ),
+      width: "15%",
+    },
+    {
+      title: "Tên người dùng",
+      dataIndex: "username",
     },
     {
       title: "Họ và tên",
       dataIndex: "name",
     },
-    {
-      title: "Tên đăng nhập",
-      dataIndex: "username",
-    },
-    // {
-    //   title: "Category Slug",
-    //   dataIndex: "categorySlug",
-    // },
-    {
-      title: "Email",
-      dataIndex: "email",
-    },
-    // {
-    //   title: "Slug",
-    //   dataIndex: "slug",
-    // },
-    {
-      title: "Số điện thoại",
-      dataIndex: "phone",
-    },
+
     {
       title: "Địa chỉ",
       dataIndex: "address",
     },
     {
+      title: "Số điện thoại",
+      dataIndex: "phone",
+    },
+    {
       title: "Trạng thái",
       dataIndex: "status",
       key: "status",
+      width: "8%",
       render: (text, record) => {
-        const isChecked = record.status === 2 ? true : false; // Giả sử trạng thái hoạt động là 'active'
+        const isChecked = record.isActive === true ? true : false; // Giả sử trạng thái hoạt động là 'active'
         return (
           <Tooltip title={isChecked ? "Tắt" : "Mở"}>
             <Switch
@@ -225,135 +209,71 @@ const AdminUser = () => {
         );
       },
     },
+    {
+      title: "Tùy chỉnh",
+      dataIndex: "action",
+      render: (text, record) => (
+        <Space size="middle">
+          <Tooltip title="Sửa">
+            <EditOutlined
+              onClick={() => handleGetDetailProduct(record)}
+              style={{ cursor: "pointer" }}
+            />
+          </Tooltip>
+          <Tooltip title="Xóa">
+            <DeleteOutlined
+              onClick={() => {
+                setIsOpenModalDelete(true);
+                setIdProduct(record.id);
+              }}
+              style={{ color: "red", cursor: "pointer" }}
+            />
+          </Tooltip>
+        </Space>
+      ),
+    },
   ];
-  const getAllColorName = async () => {
-    getAllColor().then((res) => {
-      setColor(res);
-    });
-  };
-  const getAllSizeName = async () => {
-    getAllSize().then((res) => {
-      setSize(res);
-    });
-  };
+
   const showModal = () => {
     setIsOpenModalCreate(true);
   };
 
   const handleCancel = () => {
     setIsOpenModalCreate(false);
-    setStateProduct({
+    setStateUser({
       name: null,
-      price: null,
-      categorySlug: null,
-      color: [],
-      slug: null,
-      size: [],
-      description: null,
+      avatarUrl: null,
+      username: null,
+      address: null,
+      phone: null,
+      password: null,
     });
+    setDownloadURL(null);
     form.resetFields();
-    setImageUrls([]);
   };
 
-  const onFinish = () => {};
-
   const handleOnChange = (e) => {
-    setStateProduct({
-      ...stateProduct,
+    setStateUser({
+      ...stateUser,
       [e.target.name]: e.target.value,
     });
   };
-  const getAllCategoryDrop = async () => {
-    await getAllCategory().then((res) => {
-      setCategory(res);
-    });
-  };
-  const handleOncChangeDropColor = (selectedValues) => {
-    setStateProduct({
-      ...stateProduct,
-      color: selectedValues,
-    });
-  };
-  const handleOncChangeDropColorUpdate = (selectedValues) => {
-    setStateProductUpdate({
-      ...stateProductDetail,
-      color: selectedValues,
-    });
-  };
-  const handleOncChangeDropSizeUpdate = (selectedValues) => {
-    setStateProductUpdate({
-      ...stateProductUpdate,
-      size: selectedValues,
-    });
-  };
-  const handleOncChangeDropSize = (selectedValues) => {
-    setStateProduct({
-      ...stateProduct,
-      size: selectedValues,
-    });
-  };
-  const handleOncChangeDropCategory = (selectedValues) => {
-    setStateProduct({
-      ...stateProduct,
-      category: selectedValues,
-    });
-  };
-  const handleSubmit = async () => {
-    const imageUploadFormat = imageUpload.map((item) => {
-      const base64String = item.split(",")[1];
-      return {
-        base64String,
-      };
-    });
-    const imageReq = imageUploadFormat.map((item) => item.base64String);
-    const data = {
-      name: stateProduct.name,
-      description: stateProduct.description,
-      price: stateProduct.price,
-      slug: "ao-thun",
-      idCategory: 1,
-      idSize: stateProduct.size,
-      idColor: stateProduct.color,
-      base64String: imageReq,
-    };
-    await createProduct(data).then((res) => {
-      toast.success("Thêm thành công sản phẩm mới !", {
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 2000,
-      });
-      getListProduct();
-    });
 
-    setImageUrls([]);
-    setIsOpenModalCreate(false);
-    setStateProduct({
-      title: null,
-      price: null,
-      categorySlug: null,
-      color: [],
-      slug: null,
-      size: [],
-      description: null,
+  const handleSubmit = async () => {
+    console.log(stateUser);
+    await createUser(stateUser).then((res) => {
+      console.log(res);
+      getListUser();
     });
     form.resetFields();
   };
-  const getListProduct = async () => {
+  const getListUser = async () => {
     const data = {
       name: searchTerm,
     };
-    await getAllUser(data).then((res) => {
-      const dataFormat = res.map((data) => {
-        return {
-          id: data.id,
-          name: data.fullname,
-          username: data.username,
-          email: data.email,
-          phone: data.phone,
-          address: data.address,
-          status: data.status,
-        };
-      });
-      setListProduct(dataFormat);
+    await getAllUser().then((res) => {
+      console.log(res);
+      setListProduct(res);
     });
   };
   const handleRemoveProduct = async (record) => {
@@ -363,12 +283,18 @@ const AdminUser = () => {
         toast.success("Xóa thành công sản phẩm !", 2000, {
           position: toast.POSITION.TOP_RIGHT,
         });
-        getListProduct();
+        getListUser();
       })
       .catch((err) => {
         console.log(err);
       });
   };
+  const uploadButton = (
+    <div>
+      {loading ? <LoadingOutlined /> : <PlusOutlined />}
+      <div style={{ marginTop: 8 }}>Hình đại diện</div>
+    </div>
+  );
   const handleUpdateProduct = async () => {
     const imageUploadFormat = imageUpload.map((item) => {
       const base64String = item.split(",")[1];
@@ -396,10 +322,9 @@ const AdminUser = () => {
         autoClose: 2000,
       });
       setIsOpenModalEdit(false);
-      getListProduct();
+      getListUser();
     });
 
-    setImageUrls([]);
     setStateProduct({
       title: null,
       price: null,
@@ -431,15 +356,8 @@ const AdminUser = () => {
     setIsOpenModalEdit(true);
   };
 
-  // useEffect(() => {
-  //   handleGetDetailProduct();
-  // }, [handleGetDetailProduct]);
-
   useEffect(() => {
-    getAllColorName();
-    getAllSizeName();
-    getAllCategoryDrop();
-    getListProduct();
+    getListUser();
   }, []);
   return (
     <div>
@@ -452,7 +370,7 @@ const AdminUser = () => {
         }}
       >
         <ModalComponent
-          title="Tạo sản phẩm mới"
+          title="Thêm mới nhân viên"
           open={isOpenModalCreate}
           onOk={handleSubmit}
           onCancel={handleCancel}
@@ -461,10 +379,10 @@ const AdminUser = () => {
           <Form
             name="basic"
             labelCol={{
-              span: 6,
+              span: 8,
             }}
             wrapperCol={{
-              span: 20,
+              span: 16,
             }}
             style={{
               maxWidth: 600,
@@ -472,151 +390,126 @@ const AdminUser = () => {
             initialValues={{
               remember: true,
             }}
-            onFinish={onFinish}
             autoComplete="off"
             form={form}
           >
             <Form.Item
-              label="Tên sản phẩm"
+              label="Họ và tên"
               name="name"
               rules={[
                 {
                   required: true,
-                  message: "Please input title product!",
+                  message: "Không được bỏ trống Họ và tên",
                 },
               ]}
             >
               <InputComponent
-                value={stateProduct.name}
+                value={stateUser.name}
                 onChange={handleOnChange}
                 name="name"
               />
             </Form.Item>
 
             <Form.Item
-              label="Giá tiền"
-              name="price"
+              label="Tên người dùng"
+              name="username"
               rules={[
                 {
                   required: true,
-                  message: "Please input price product!",
+                  message: "Không được bỏ trống Tên người dùng",
                 },
               ]}
             >
               <InputComponent
-                value={stateProduct.price}
+                value={stateUser.username}
                 onChange={handleOnChange}
-                name="price"
+                name="username"
               />
             </Form.Item>
-
             <Form.Item
-              label="Màu sắc"
-              name="color"
+              label="Mật khẩu"
+              name="password"
               rules={[
                 {
                   required: true,
-                  message: "Please input color product!",
+                  message: "Không được bỏ trống Mật khẩu",
                 },
               ]}
             >
-              <Select
-                value={selectedColors}
-                onChange={handleOncChangeDropColor}
-                name="color"
-                mode="multiple"
-              >
-                {color ? (
-                  color.map((opt) => (
-                    <Option key={opt.id} value={opt.id}>
-                      {opt.name}
-                    </Option>
-                  ))
-                ) : (
-                  <></>
-                )}
-              </Select>
+              <Input.Password
+                value={stateUser.password}
+                onChange={handleOnChange}
+                name="password"
+              />
             </Form.Item>
-
             <Form.Item
-              label="Size"
-              name="size"
+              label="Địa chỉ"
+              name="address"
               rules={[
                 {
                   required: true,
-                  message: "Please input size product!",
-                },
-              ]}
-            >
-              <Select
-                value={selectedColors}
-                onChange={handleOncChangeDropSize}
-                name="color"
-                mode="multiple"
-              >
-                {size ? (
-                  size.map((opt) => (
-                    <Option key={opt.id} value={opt.id}>
-                      {opt.name}
-                    </Option>
-                  ))
-                ) : (
-                  <></>
-                )}
-              </Select>
-            </Form.Item>
-            <Form.Item
-              label="Loại sản phẩm"
-              name="category"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input size product!",
-                },
-              ]}
-            >
-              <Select
-                value={selectCategory}
-                onChange={handleOncChangeDropCategory}
-                name="color"
-              >
-                {category ? (
-                  category.map((opt) => (
-                    <Option key={opt.id} value={opt.id}>
-                      {opt.name}
-                    </Option>
-                  ))
-                ) : (
-                  <></>
-                )}
-              </Select>
-            </Form.Item>
-
-            <Form.Item
-              label="Mô tả"
-              name="description"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input description product!",
+                  message: "Không được bỏ trống Địa chỉ",
                 },
               ]}
             >
               <InputComponent
-                value={stateProduct.description}
+                value={stateUser.address}
                 onChange={handleOnChange}
-                name="description"
+                name="address"
+              />
+            </Form.Item>
+            <Form.Item
+              label="Số điện thoại"
+              name="phone"
+              rules={[
+                {
+                  required: true,
+                  message: "Không được bỏ trống Số điện thoại",
+                },
+              ]}
+            >
+              <InputComponent
+                value={stateUser.phone}
+                onChange={handleOnChange}
+                name="phone"
               />
             </Form.Item>
 
             <Form.Item
-              wrapperCol={{
-                offset: 20,
-                span: 16,
-              }}
+              label="Hình đại diện"
+              name="avatarUrl"
+              valuePropName="fileList"
+              getValueFromEvent={(e) => (Array.isArray(e) ? e : e && [e.file])}
             >
+              <Upload
+                name="avatarUrl"
+                listType="picture-card"
+                className="avatar-uploader"
+                showUploadList={false}
+                onChange={(e) => handleUpload(e)}
+              >
+                {downloadURL ? (
+                  <img
+                    src={downloadURL}
+                    alt="avatar"
+                    style={{ width: "100%" }}
+                  />
+                ) : (
+                  uploadButton
+                )}
+              </Upload>
+            </Form.Item>
+            <Form.Item>
+              <Button
+                type="primary"
+                style={{ marginRight: "10px" }}
+                htmlType="submit"
+                onClick={handleSubmit}
+              >
+                Hủy bỏ
+              </Button>
               <Button type="primary" htmlType="submit" onClick={handleSubmit}>
-                Submit
+                Tạo mới
               </Button>
             </Form.Item>
           </Form>
@@ -653,7 +546,6 @@ const AdminUser = () => {
               description: null,
             });
             form.resetFields();
-            setImageUrls([]);
           }}
           width="50%"
         >
@@ -672,7 +564,6 @@ const AdminUser = () => {
               initialValues={{
                 remember: true,
               }}
-              onFinish={() => {}}
               autoComplete="off"
               form={form}
             >
@@ -708,86 +599,6 @@ const AdminUser = () => {
                   onChange={handleOnChangeUpdate}
                   name="price"
                 />
-              </Form.Item>
-              <Form.Item
-                label="Màu sắc"
-                name="color"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input color product!",
-                  },
-                ]}
-              >
-                <Select
-                  value={stateProductUpdate.color}
-                  onChange={handleOncChangeDropColorUpdate}
-                  name="color"
-                  mode="multiple"
-                >
-                  {color ? (
-                    color.map((opt) => (
-                      <Option key={opt.id} value={opt.id}>
-                        {opt.name}
-                      </Option>
-                    ))
-                  ) : (
-                    <></>
-                  )}
-                </Select>
-              </Form.Item>
-              <Form.Item
-                label="Size"
-                name="size"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input size product!",
-                  },
-                ]}
-              >
-                <Select
-                  value={stateProductUpdate.size}
-                  onChange={handleOncChangeDropSizeUpdate}
-                  name="size"
-                  mode="multiple"
-                >
-                  {size ? (
-                    size.map((opt) => (
-                      <Option key={opt.id} value={opt.id}>
-                        {opt.name}
-                      </Option>
-                    ))
-                  ) : (
-                    <></>
-                  )}
-                </Select>
-              </Form.Item>
-              <Form.Item
-                label="Loại sản phẩm"
-                name="category"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input size product!",
-                  },
-                ]}
-              >
-                <Select
-                  value={stateProductUpdate.idCategory}
-                  onChange={handleOnChangeUpdate}
-                  name="category"
-                >
-                  {category ? (
-                    category.map((opt) => (
-                      <Option key={opt.id} value={opt.id}>
-                        {opt.name}
-                      </Option>
-                    ))
-                  ) : (
-                    <></>
-                  )}
-                </Select>
               </Form.Item>
 
               <Form.Item
@@ -831,6 +642,7 @@ const AdminUser = () => {
             columns={columns}
             data={listProduct}
             handleDelete={() => {}}
+            handleOpenCreate={showModal}
             onRow={(record) => {
               return {
                 onClick: (event) => {

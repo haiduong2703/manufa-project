@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../redux/user-modal/userModalSlice";
 import RoutesAdmin from "../routes/RoutesAdmin";
 const Layout = () => {
-  const userName = sessionStorage.getItem("username");
+  const checkLogin = sessionStorage.getItem("checklogin");
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
@@ -22,7 +22,6 @@ const Layout = () => {
   if (user.role === 2) {
     checkUser = false;
   }
-  // const user = sessionStorage.getItem("user");
 
   return (
     <BrowserRouter>
