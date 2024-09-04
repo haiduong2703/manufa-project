@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\DuongNguyen\\Máy tính\\manufa-project\\Manufa\\Manufa\\Manufa.csproj": {}
+    "D:\\CodeThue\\Manufa\\Manufa\\Manufa.csproj": {}
   },
   "projects": {
-    "C:\\Users\\DuongNguyen\\Máy tính\\manufa-project\\Manufa\\Manufa\\Manufa.csproj": {
+    "D:\\CodeThue\\Manufa\\Manufa\\Manufa.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\DuongNguyen\\Máy tính\\manufa-project\\Manufa\\Manufa\\Manufa.csproj",
+        "projectUniqueName": "D:\\CodeThue\\Manufa\\Manufa\\Manufa.csproj",
         "projectName": "Manufa",
-        "projectPath": "C:\\Users\\DuongNguyen\\Máy tính\\manufa-project\\Manufa\\Manufa\\Manufa.csproj",
+        "projectPath": "D:\\CodeThue\\Manufa\\Manufa\\Manufa.csproj",
         "packagesPath": "C:\\Users\\DuongNguyen\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\DuongNguyen\\Máy tính\\manufa-project\\Manufa\\Manufa\\obj\\",
+        "outputPath": "D:\\CodeThue\\Manufa\\Manufa\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -63,6 +63,10 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[5.6.3, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[5.6.0, )"
             }
           },
           "imports": [

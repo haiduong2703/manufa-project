@@ -6234,7 +6234,8 @@
     "net5.0": [
       "Microsoft.EntityFrameworkCore.SqlServer >= 5.0.11",
       "Microsoft.EntityFrameworkCore.Tools >= 5.0.11",
-      "Swashbuckle.AspNetCore >= 5.6.3"
+      "Swashbuckle.AspNetCore >= 5.6.3",
+      "System.IdentityModel.Tokens.Jwt >= 5.6.0"
     ]
   },
   "packageFolders": {
@@ -6244,11 +6245,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\DuongNguyen\\Máy tính\\manufa-project\\Manufa\\Manufa\\Manufa.csproj",
+      "projectUniqueName": "D:\\CodeThue\\Manufa\\Manufa\\Manufa.csproj",
       "projectName": "Manufa",
-      "projectPath": "C:\\Users\\DuongNguyen\\Máy tính\\manufa-project\\Manufa\\Manufa\\Manufa.csproj",
+      "projectPath": "D:\\CodeThue\\Manufa\\Manufa\\Manufa.csproj",
       "packagesPath": "C:\\Users\\DuongNguyen\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\DuongNguyen\\Máy tính\\manufa-project\\Manufa\\Manufa\\obj\\",
+      "outputPath": "D:\\CodeThue\\Manufa\\Manufa\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -6300,6 +6301,10 @@
           "Swashbuckle.AspNetCore": {
             "target": "Package",
             "version": "[5.6.3, )"
+          },
+          "System.IdentityModel.Tokens.Jwt": {
+            "target": "Package",
+            "version": "[5.6.0, )"
           }
         },
         "imports": [
@@ -6324,5 +6329,17 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1902",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'System.IdentityModel.Tokens.Jwt' 5.6.0 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-59j7-ghrg-fj52",
+      "libraryId": "System.IdentityModel.Tokens.Jwt",
+      "targetGraphs": [
+        "net5.0"
+      ]
+    }
+  ]
 }
