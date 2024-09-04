@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "MVXFR8svWyg=",
+  "dgSpecHash": "ahV1tAMYZ1k=",
   "success": true,
-  "projectFilePath": "D:\\CodeThue\\Manufa\\Manufa\\Manufa.csproj",
+  "projectFilePath": "C:\\Users\\DuongNguyen\\Máy tính\\manufa-project\\Manufa\\Manufa\\Manufa.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\DuongNguyen\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\DuongNguyen\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

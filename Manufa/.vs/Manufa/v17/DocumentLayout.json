@@ -1,62 +1,65 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\CodeThue\\Manufa\\",
+  "WorkspaceRootPath": "C:\\Users\\DuongNguyen\\M\u00E1y t\u00EDnh\\manufa-project\\Manufa\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|d:\\codethue\\manufa\\manufa\\migrations\\20240903031050_dbinit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|c:\\users\\duongnguyen\\m\u00E1y t\u00EDnh\\manufa-project\\manufa\\manufa\\interface\\iaccountservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|solutionrelative:manufa\\interface\\iaccountservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|c:\\users\\duongnguyen\\m\u00E1y t\u00EDnh\\manufa-project\\manufa\\manufa\\migrations\\20240903031050_dbinit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|solutionrelative:manufa\\migrations\\20240903031050_dbinit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|d:\\codethue\\manufa\\manufa\\models\\mydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|c:\\users\\duongnguyen\\m\u00E1y t\u00EDnh\\manufa-project\\manufa\\manufa\\models\\mydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|solutionrelative:manufa\\models\\mydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|d:\\codethue\\manufa\\manufa\\startup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|c:\\users\\duongnguyen\\m\u00E1y t\u00EDnh\\manufa-project\\manufa\\manufa\\startup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|solutionrelative:manufa\\startup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|d:\\codethue\\manufa\\manufa\\models\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|c:\\users\\duongnguyen\\m\u00E1y t\u00EDnh\\manufa-project\\manufa\\manufa\\models\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|solutionrelative:manufa\\models\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|d:\\codethue\\manufa\\manufa\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "AbsoluteMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|c:\\users\\duongnguyen\\m\u00E1y t\u00EDnh\\manufa-project\\manufa\\manufa\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|solutionrelative:manufa\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|d:\\codethue\\manufa\\manufa\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|c:\\users\\duongnguyen\\m\u00E1y t\u00EDnh\\manufa-project\\manufa\\manufa\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|solutionrelative:manufa\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|d:\\codethue\\manufa\\manufa\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|solutionrelative:manufa\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|d:\\codethue\\manufa\\manufa\\models\\componenttype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|c:\\users\\duongnguyen\\m\u00E1y t\u00EDnh\\manufa-project\\manufa\\manufa\\models\\componenttype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|solutionrelative:manufa\\models\\componenttype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|d:\\codethue\\manufa\\manufa\\models\\staff.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|c:\\users\\duongnguyen\\m\u00E1y t\u00EDnh\\manufa-project\\manufa\\manufa\\models\\staff.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|solutionrelative:manufa\\models\\staff.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|d:\\codethue\\manufa\\manufa\\models\\manager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|c:\\users\\duongnguyen\\m\u00E1y t\u00EDnh\\manufa-project\\manufa\\manufa\\models\\manager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|solutionrelative:manufa\\models\\manager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|d:\\codethue\\manufa\\manufa\\models\\admin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|c:\\users\\duongnguyen\\m\u00E1y t\u00EDnh\\manufa-project\\manufa\\manufa\\models\\admin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|solutionrelative:manufa\\models\\admin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|d:\\codethue\\manufa\\manufa\\models\\productcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|c:\\users\\duongnguyen\\m\u00E1y t\u00EDnh\\manufa-project\\manufa\\manufa\\models\\productcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|solutionrelative:manufa\\models\\productcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|d:\\codethue\\manufa\\manufa\\models\\bodysizecomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|c:\\users\\duongnguyen\\m\u00E1y t\u00EDnh\\manufa-project\\manufa\\manufa\\models\\bodysizecomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|solutionrelative:manufa\\models\\bodysizecomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|d:\\codethue\\manufa\\manufa\\manufa.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "AbsoluteMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|c:\\users\\duongnguyen\\m\u00E1y t\u00EDnh\\manufa-project\\manufa\\manufa\\manufa.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{5DAFC3E2-4D02-4F39-942D-18AE31957E8F}|Manufa\\Manufa.csproj|solutionrelative:manufa\\manufa.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\CodeThue\\Manufa\\Manufa\\WeatherForecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -66,15 +69,32 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{e8b06f53-6d01-11d2-aa7d-00c04f990343}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "IAccountServices.cs",
+              "DocumentMoniker": "C:\\Users\\DuongNguyen\\M\u00E1y t\u00EDnh\\manufa-project\\Manufa\\Manufa\\Interface\\IAccountServices.cs",
+              "RelativeDocumentMoniker": "Manufa\\Interface\\IAccountServices.cs",
+              "ToolTip": "C:\\Users\\DuongNguyen\\M\u00E1y t\u00EDnh\\manufa-project\\Manufa\\Manufa\\Interface\\IAccountServices.cs",
+              "RelativeToolTip": "Manufa\\Interface\\IAccountServices.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-03T21:46:17.507Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "20240903031050_DbInit.cs",
-              "DocumentMoniker": "D:\\CodeThue\\Manufa\\Manufa\\Migrations\\20240903031050_DbInit.cs",
+              "DocumentMoniker": "C:\\Users\\DuongNguyen\\M\u00E1y t\u00EDnh\\manufa-project\\Manufa\\Manufa\\Migrations\\20240903031050_DbInit.cs",
               "RelativeDocumentMoniker": "Manufa\\Migrations\\20240903031050_DbInit.cs",
-              "ToolTip": "D:\\CodeThue\\Manufa\\Manufa\\Migrations\\20240903031050_DbInit.cs",
+              "ToolTip": "C:\\Users\\DuongNguyen\\M\u00E1y t\u00EDnh\\manufa-project\\Manufa\\Manufa\\Migrations\\20240903031050_DbInit.cs",
               "RelativeToolTip": "Manufa\\Migrations\\20240903031050_DbInit.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -83,176 +103,157 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "appsettings.json",
-              "DocumentMoniker": "D:\\CodeThue\\Manufa\\Manufa\\appsettings.json",
+              "DocumentMoniker": "C:\\Users\\DuongNguyen\\M\u00E1y t\u00EDnh\\manufa-project\\Manufa\\Manufa\\appsettings.json",
               "RelativeDocumentMoniker": "Manufa\\appsettings.json",
-              "ToolTip": "D:\\CodeThue\\Manufa\\Manufa\\appsettings.json",
+              "ToolTip": "C:\\Users\\DuongNguyen\\M\u00E1y t\u00EDnh\\manufa-project\\Manufa\\Manufa\\appsettings.json",
               "RelativeToolTip": "Manufa\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAABEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-09-03T03:02:57.864Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:1:0:{e8b06f53-6d01-11d2-aa7d-00c04f990343}"
+              "WhenOpened": "2024-09-03T03:02:57.864Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
               "Title": "ComponentType.cs",
-              "DocumentMoniker": "D:\\CodeThue\\Manufa\\Manufa\\Models\\ComponentType.cs",
+              "DocumentMoniker": "C:\\Users\\DuongNguyen\\M\u00E1y t\u00EDnh\\manufa-project\\Manufa\\Manufa\\Models\\ComponentType.cs",
               "RelativeDocumentMoniker": "Manufa\\Models\\ComponentType.cs",
-              "ToolTip": "D:\\CodeThue\\Manufa\\Manufa\\Models\\ComponentType.cs",
+              "ToolTip": "C:\\Users\\DuongNguyen\\M\u00E1y t\u00EDnh\\manufa-project\\Manufa\\Manufa\\Models\\ComponentType.cs",
               "RelativeToolTip": "Manufa\\Models\\ComponentType.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAA+AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-03T02:37:54.304Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-03T02:37:54.304Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 8,
               "Title": "Staff.cs",
-              "DocumentMoniker": "D:\\CodeThue\\Manufa\\Manufa\\Models\\Staff.cs",
+              "DocumentMoniker": "C:\\Users\\DuongNguyen\\M\u00E1y t\u00EDnh\\manufa-project\\Manufa\\Manufa\\Models\\Staff.cs",
               "RelativeDocumentMoniker": "Manufa\\Models\\Staff.cs",
-              "ToolTip": "D:\\CodeThue\\Manufa\\Manufa\\Models\\Staff.cs",
+              "ToolTip": "C:\\Users\\DuongNguyen\\M\u00E1y t\u00EDnh\\manufa-project\\Manufa\\Manufa\\Models\\Staff.cs",
               "RelativeToolTip": "Manufa\\Models\\Staff.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-03T02:33:37.975Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-03T02:33:37.975Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 10,
               "Title": "Admin.cs",
-              "DocumentMoniker": "D:\\CodeThue\\Manufa\\Manufa\\Models\\Admin.cs",
+              "DocumentMoniker": "C:\\Users\\DuongNguyen\\M\u00E1y t\u00EDnh\\manufa-project\\Manufa\\Manufa\\Models\\Admin.cs",
               "RelativeDocumentMoniker": "Manufa\\Models\\Admin.cs",
-              "ToolTip": "D:\\CodeThue\\Manufa\\Manufa\\Models\\Admin.cs",
+              "ToolTip": "C:\\Users\\DuongNguyen\\M\u00E1y t\u00EDnh\\manufa-project\\Manufa\\Manufa\\Models\\Admin.cs",
               "RelativeToolTip": "Manufa\\Models\\Admin.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-03T02:23:37.348Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-03T02:23:37.348Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "MyDbContext.cs",
-              "DocumentMoniker": "D:\\CodeThue\\Manufa\\Manufa\\Models\\MyDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\DuongNguyen\\M\u00E1y t\u00EDnh\\manufa-project\\Manufa\\Manufa\\Models\\MyDbContext.cs",
               "RelativeDocumentMoniker": "Manufa\\Models\\MyDbContext.cs",
-              "ToolTip": "D:\\CodeThue\\Manufa\\Manufa\\Models\\MyDbContext.cs",
+              "ToolTip": "C:\\Users\\DuongNguyen\\M\u00E1y t\u00EDnh\\manufa-project\\Manufa\\Manufa\\Models\\MyDbContext.cs",
               "RelativeToolTip": "Manufa\\Models\\MyDbContext.cs",
               "ViewState": "AgIAABMAAAAAAAAAAAAIwCMAAABwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-01T17:11:04.196Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-01T17:11:04.196Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 9,
               "Title": "Manager.cs",
-              "DocumentMoniker": "D:\\CodeThue\\Manufa\\Manufa\\Models\\Manager.cs",
+              "DocumentMoniker": "C:\\Users\\DuongNguyen\\M\u00E1y t\u00EDnh\\manufa-project\\Manufa\\Manufa\\Models\\Manager.cs",
               "RelativeDocumentMoniker": "Manufa\\Models\\Manager.cs",
-              "ToolTip": "D:\\CodeThue\\Manufa\\Manufa\\Models\\Manager.cs",
+              "ToolTip": "C:\\Users\\DuongNguyen\\M\u00E1y t\u00EDnh\\manufa-project\\Manufa\\Manufa\\Models\\Manager.cs",
               "RelativeToolTip": "Manufa\\Models\\Manager.cs",
               "ViewState": "AgIAAAcAAAAAAAAAAAAzwBMAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-03T02:23:58.884Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\CodeThue\\Manufa\\Manufa\\Program.cs",
-              "RelativeDocumentMoniker": "Manufa\\Program.cs",
-              "ToolTip": "D:\\CodeThue\\Manufa\\Manufa\\Program.cs",
-              "RelativeToolTip": "Manufa\\Program.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-01T17:08:15.074Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Startup.cs",
-              "DocumentMoniker": "D:\\CodeThue\\Manufa\\Manufa\\Startup.cs",
-              "RelativeDocumentMoniker": "Manufa\\Startup.cs",
-              "ToolTip": "D:\\CodeThue\\Manufa\\Manufa\\Startup.cs",
-              "RelativeToolTip": "Manufa\\Startup.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAAAAwCMAAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-01T17:08:16.616Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Account.cs",
-              "DocumentMoniker": "D:\\CodeThue\\Manufa\\Manufa\\Models\\Account.cs",
-              "RelativeDocumentMoniker": "Manufa\\Models\\Account.cs",
-              "ToolTip": "D:\\CodeThue\\Manufa\\Manufa\\Models\\Account.cs",
-              "RelativeToolTip": "Manufa\\Models\\Account.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-03T02:23:25.546Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-03T02:23:58.884Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\DuongNguyen\\M\u00E1y t\u00EDnh\\manufa-project\\Manufa\\Manufa\\Program.cs",
+              "RelativeDocumentMoniker": "Manufa\\Program.cs",
+              "ToolTip": "C:\\Users\\DuongNguyen\\M\u00E1y t\u00EDnh\\manufa-project\\Manufa\\Manufa\\Program.cs",
+              "RelativeToolTip": "Manufa\\Program.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-01T17:08:15.074Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Startup.cs",
+              "DocumentMoniker": "C:\\Users\\DuongNguyen\\M\u00E1y t\u00EDnh\\manufa-project\\Manufa\\Manufa\\Startup.cs",
+              "RelativeDocumentMoniker": "Manufa\\Startup.cs",
+              "ToolTip": "C:\\Users\\DuongNguyen\\M\u00E1y t\u00EDnh\\manufa-project\\Manufa\\Manufa\\Startup.cs",
+              "RelativeToolTip": "Manufa\\Startup.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAAwCMAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-01T17:08:16.616Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Account.cs",
+              "DocumentMoniker": "C:\\Users\\DuongNguyen\\M\u00E1y t\u00EDnh\\manufa-project\\Manufa\\Manufa\\Models\\Account.cs",
+              "RelativeDocumentMoniker": "Manufa\\Models\\Account.cs",
+              "ToolTip": "C:\\Users\\DuongNguyen\\M\u00E1y t\u00EDnh\\manufa-project\\Manufa\\Manufa\\Models\\Account.cs",
+              "RelativeToolTip": "Manufa\\Models\\Account.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-03T02:23:25.546Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
               "Title": "WeatherForecast.cs",
               "DocumentMoniker": "D:\\CodeThue\\Manufa\\Manufa\\WeatherForecast.cs",
-              "RelativeDocumentMoniker": "Manufa\\WeatherForecast.cs",
               "ToolTip": "D:\\CodeThue\\Manufa\\Manufa\\WeatherForecast.cs",
-              "RelativeToolTip": "Manufa\\WeatherForecast.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-01T17:08:17.832Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-01T17:08:17.832Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 11,
               "Title": "ProductComponent.cs",
-              "DocumentMoniker": "D:\\CodeThue\\Manufa\\Manufa\\Models\\ProductComponent.cs",
+              "DocumentMoniker": "C:\\Users\\DuongNguyen\\M\u00E1y t\u00EDnh\\manufa-project\\Manufa\\Manufa\\Models\\ProductComponent.cs",
               "RelativeDocumentMoniker": "Manufa\\Models\\ProductComponent.cs",
-              "ToolTip": "D:\\CodeThue\\Manufa\\Manufa\\Models\\ProductComponent.cs",
+              "ToolTip": "C:\\Users\\DuongNguyen\\M\u00E1y t\u00EDnh\\manufa-project\\Manufa\\Manufa\\Models\\ProductComponent.cs",
               "RelativeToolTip": "Manufa\\Models\\ProductComponent.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-03T02:34:31.491Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-03T02:34:31.491Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 12,
               "Title": "BodySizeComponent.cs",
-              "DocumentMoniker": "D:\\CodeThue\\Manufa\\Manufa\\Models\\BodySizeComponent.cs",
+              "DocumentMoniker": "C:\\Users\\DuongNguyen\\M\u00E1y t\u00EDnh\\manufa-project\\Manufa\\Manufa\\Models\\BodySizeComponent.cs",
               "RelativeDocumentMoniker": "Manufa\\Models\\BodySizeComponent.cs",
-              "ToolTip": "D:\\CodeThue\\Manufa\\Manufa\\Models\\BodySizeComponent.cs",
+              "ToolTip": "C:\\Users\\DuongNguyen\\M\u00E1y t\u00EDnh\\manufa-project\\Manufa\\Manufa\\Models\\BodySizeComponent.cs",
               "RelativeToolTip": "Manufa\\Models\\BodySizeComponent.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-03T02:51:31.491Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-03T02:51:31.491Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 13,
               "Title": "Manufa.csproj",
-              "DocumentMoniker": "D:\\CodeThue\\Manufa\\Manufa\\Manufa.csproj",
+              "DocumentMoniker": "C:\\Users\\DuongNguyen\\M\u00E1y t\u00EDnh\\manufa-project\\Manufa\\Manufa\\Manufa.csproj",
               "RelativeDocumentMoniker": "Manufa\\Manufa.csproj",
-              "ToolTip": "D:\\CodeThue\\Manufa\\Manufa\\Manufa.csproj",
+              "ToolTip": "C:\\Users\\DuongNguyen\\M\u00E1y t\u00EDnh\\manufa-project\\Manufa\\Manufa\\Manufa.csproj",
               "RelativeToolTip": "Manufa\\Manufa.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-09-01T17:10:10.945Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-01T17:10:10.945Z"
             }
           ]
         },
