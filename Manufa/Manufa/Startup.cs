@@ -42,7 +42,7 @@ namespace Manufa
             });
             services.AddTransient<IAccountServices, AccountServices>();
             services.AddTransient<IBodyComponentServices, BodyComponentServices>();
-            services.AddTransient<IBodySizeComponentServices, BodySizeComponentServices>();
+            services.AddTransient<IMaterialServices, MaterialServices>();
 
         }
 

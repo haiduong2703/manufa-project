@@ -11,6 +11,9 @@ namespace Manufa.Models
         [StringLength(255)]
         public string Image { get; set; }
         public int TypeId { get; set; }
+        public int MinSize { get; set; }
+        public int MaxSize { get; set; }
+
         public virtual ComponentType ComponentType { get; set; }
     }
 }

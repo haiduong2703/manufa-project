@@ -12,6 +12,8 @@ namespace Manufa.Models
         public DbSet<ProductComponent> ProductComponent { get; set; }
         public DbSet<Staff> Staff { get; set; }
 
+        public DbSet<MaterialType> MaterialType { get; set; }
+        public DbSet<Material> Material { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Account>()
@@ -35,7 +37,11 @@ namespace Manufa.Models
                 e.HasMany(x => x.ProductComponents).WithOne(x => x.ComponentType).HasForeignKey(x => x.TypeId);
                 e.HasMany(x => x.BodySizeComponents).WithOne(x => x.ComponentType).HasForeignKey(x => x.TypeId);
             });
-                
+            modelBuilder.Entity<MaterialType>(e =>
+            {
+                e.HasMany(x => x.Materials).WithOne(x => x.MaterialType).HasForeignKey(x => x.TypeId);
+            });
+
         }
 
 
