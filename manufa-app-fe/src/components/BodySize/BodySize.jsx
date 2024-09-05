@@ -46,41 +46,7 @@ const BodySize = () => {
     phone: "",
     password: "",
   });
-  const [stateProduct, setStateProduct] = useState({
-    name: "",
-    price: "",
-    categorySlug: "",
-    color: [],
-    slug: "",
-    idCategory: 0,
-    size: [],
-    description: "",
-    namePath: [],
-  });
-  const [stateProductDetail, setStateProductDetail] = useState({
-    id: 0,
-    name: "",
-    price: "",
-    categorySlug: "",
-    idCategory: 0,
-    color: [],
-    slug: "",
-    size: [],
-    namePath: [],
-    description: "",
-  });
-  const [stateProductUpdate, setStateProductUpdate] = useState({
-    id: 0,
-    name: "",
-    price: "",
-    categorySlug: "",
-    idCategory: 0,
-    color: [],
-    slug: "",
-    size: [],
-    namePath: [],
-    description: "",
-  });
+
   const [isRowSelected, setIsRowSelected] = useState("");
   const [isNameUser, setIsNameUser] = useState("");
   const [imageUpload, setImageUpload] = useState([]);
@@ -92,7 +58,7 @@ const BodySize = () => {
   const [checkChange, setCheckChange] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const [loadingUploadImg, setLoadingUploadImg] = useState(false);
   const [downloadURL, setDownloadURL] = useState("");
 
 
@@ -168,7 +134,7 @@ const BodySize = () => {
 
   const [form] = Form.useForm();
   const handleSubmit = async () => {
-    // console.log(bodySize);
+    console.log(bodySize);
     // await createUser(bodySize).then((res) => {
     //   console.log(res);
     //   getListUser();
@@ -177,7 +143,7 @@ const BodySize = () => {
     //   });
     //   setIsOpenModalCreate(false);
     // });
-    form.resetFields();
+    // form.resetFields();
   };
 
   const handleCancel = () => {
@@ -196,10 +162,24 @@ const BodySize = () => {
   const showModal = () => {
     setIsOpenModalCreate(true);
   };
+  const uploadButton = (
+    <button style={{ border: 0, background: 'none' }} type="button">
+      {loadingUploadImg ? <LoadingOutlined /> : <PlusOutlined />}
+      <div style={{ marginTop: 8 }}>Upload</div>
+    </button>
+  );
+
+
+  const handleOnChange = (e) => {
+    setBodySize({
+      ...bodySize,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   return (
     <div>
-      <Header title="Số đo cơ thể" />
+      <Header title="Số đo cơ thể" name="Số đo cơ thể" />
       <div
         style={{
           border: "1px solid #593d96",
@@ -216,133 +196,118 @@ const BodySize = () => {
           cancelText="Hủy bỏ" // Đổi nút Cancel thành "Hủy bỏ"
         >
           <Form
-            name="basic"
-            labelCol={{
-              span: 8,
-            }}
-            wrapperCol={{
-              span: 16,
-            }}
-            style={{
-              maxWidth: 600,
-            }}
-            initialValues={{
-              remember: true,
-            }}
-            autoComplete="off"
-          // form={form}
+            name="validateOnly" layout="vertical" autoComplete="off" form={form}
           >
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <Form.Item
-                label="Số đo của bộ phận"
-                name="name"
-                rules={[
-                  {
-                    required: true,
-                    message: "Không được bỏ trống số đo của bộ phận",
-                  },
-                ]}
-              >
-                <InputComponent
-                  value={bodySize.soDoBoPhan}
-                  // onChange={handleOnChange}
-                  name="name"
-                />
-              </Form.Item>
-
-              <Form.Item
-                label="Tên số đo"
-                name="tenSoDo"
-                rules={[
-                  {
-                    required: true,
-                    message: "Không được bỏ trống Tên người dùng",
-                  },
-                ]}
-              >
-                <InputComponent
-                  value={bodySize.tenSoDo}
-                  // onChange={handleOnChange}
-                  name="username"
-                />
-              </Form.Item>
-            </div>
-            <div>
-
-            </div>
-            <Form.Item
-              label="Mật khẩu"
-              name="password"
-              rules={[
-                {
-                  required: true,
-                  message: "Không được bỏ trống Mật khẩu",
-                },
-              ]}
-            >
-              <Input.Password
-                value={bodySize.password}
-                // onChange={handleOnChange}
-                name="password"
-              />
-            </Form.Item>
-            <Form.Item
-              label="Địa chỉ"
-              name="address"
-              rules={[
-                {
-                  required: true,
-                  message: "Không được bỏ trống Địa chỉ",
-                },
-              ]}
-            >
-              <InputComponent
-                value={bodySize.address}
-                // onChange={handleOnChange}
-                name="address"
-              />
-            </Form.Item>
-            <Form.Item
-              label="Số điện thoại"
-              name="phone"
-              rules={[
-                {
-                  required: true,
-                  message: "Không được bỏ trống Số điện thoại",
-                },
-              ]}
-            >
-              <InputComponent
-                value={bodySize.phone}
-                // onChange={handleOnChange}
-                name="phone"
-              />
-            </Form.Item>
-
-            <Form.Item
-              label="Hình đại diện"
-              name="avatarUrl"
-              valuePropName="fileList"
-              getValueFromEvent={(e) => (Array.isArray(e) ? e : e && [e.file])}
-            >
-              <Upload
-                name="avatarUrl"
-                listType="picture-card"
-                className="avatar-uploader"
-                showUploadList={false}
-              // onChange={(e) => handleUpload(e)}
-              >
-                {/* {downloadURL ? (
-                  <img
-                    src={downloadURL}
-                    alt="avatar"
-                    style={{ width: "100%" }}
+            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+              <div style={{ width: '70%' }}>
+                <Form.Item
+                  label="Số đo của bộ phận"
+                  name="soDoBoPhan"
+                  layout="vertical"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Không được bỏ trống số đo của bộ phận",
+                    },
+                  ]}
+                >
+                  <InputComponent
+                    value={bodySize.soDoBoPhan}
+                    onChange={handleOnChange}
+                    name="soDoBoPhan"
                   />
-                ) : (
-                  uploadButton
-                )} */}
-              </Upload>
+                </Form.Item>
+
+                <Form.Item
+                  label="Tên số đo"
+                  layout="vertical"
+                  name="tenSoDo"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Không được bỏ trống Tên người dùng",
+                    },
+                  ]}
+                >
+                  <InputComponent
+                    value={bodySize.tenSoDo}
+                    onChange={handleOnChange}
+                    name="tenSoDo"
+                  />
+                </Form.Item>
+              </div>
+              <div>
+                <Upload
+                  name="imgUrl"
+                  listType="picture-card"
+                  className="avatar-uploader"
+                  showUploadList={false}
+                  action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
+                // beforeUpload={beforeUpload}
+                // onChange={handleChange}
+                >
+                  {bodySize.imgUrl ? <img src={bodySize.imgUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+                </Upload>
+              </div>
+            </div>
+            <Form.Item
+              label="Video hướng dẫn"
+              layout="vertical"
+
+              name="videoUrl"
+              rules={[
+                {
+                  required: true,
+                  message: "Không được bỏ trống video hướng dẫn",
+                },
+              ]}
+            >
+              <InputComponent
+                value={bodySize.videoUrl}
+                onChange={handleOnChange}
+                name="videoUrl"
+              />
             </Form.Item>
+            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+              <Form.Item
+                label="Giá trị tối thiểu (cm)"
+                name="minValue"
+                layout="vertical"
+
+                rules={[
+                  {
+                    required: true,
+                    message: "Không được bỏ trống giá trị tối thiểu",
+                  },
+                ]}
+              >
+                <InputComponent
+                  value={bodySize.minValue}
+                  onChange={handleOnChange}
+                  name="minValue"
+                />
+              </Form.Item>
+              <Form.Item
+                label="Giá trị tối đa (cm)"
+                name="maxValue"
+                layout="vertical"
+
+                rules={[
+                  {
+                    required: true,
+                    message: "Không được bỏ trống giá trị tối đa",
+                  },
+                ]}
+              >
+                <InputComponent
+                  value={bodySize.maxValue}
+                  onChange={handleOnChange}
+                  name="maxValue"
+                />
+              </Form.Item>
+            </div>
+
+
           </Form>
         </ModalComponent>
 
@@ -361,156 +326,7 @@ const BodySize = () => {
           </LoadingComponent>
         </ModalComponent>
 
-        <ModalComponent
-          title="Thông tin nhân viên"
-          open={isOpenModalEdit}
-          okText="Tạo mới" // Đổi nút OK thành "Tạo mới"
-          cancelText="Hủy bỏ" // Đổi nút Cancel thành "Hủy bỏ"
-          // onOk={handleUpdateUser}
-          onCancel={() => {
-            setIsOpenModalEdit(false);
-            setCheckChange(false);
-            setStateUserDetail({
-              name: null,
-              avatarUrl: null,
-              username: null,
-              address: null,
-              phone: null,
-              password: null,
-            });
-            // form.resetFields();
-          }}
-          width="50%"
-        >
-          <LoadingComponent isLoading={false}>
-            <Form
-              name="basic"
-              labelCol={{
-                span: 8,
-              }}
-              wrapperCol={{
-                span: 16,
-              }}
-              style={{
-                maxWidth: 600,
-              }}
-              initialValues={{
-                remember: true,
-              }}
-              autoComplete="off"
-            // form={form}
-            >
-              <Form.Item
-                label="Họ và tên"
-                name="name"
-                rules={[
-                  {
-                    required: true,
-                    message: "Không được bỏ trống Họ và tên",
-                  },
-                ]}
-              >
-                <InputComponent
-                  value={bodySize.name}
-                  // onChange={handleOnChangeEdit}
-                  name="name"
-                />
-              </Form.Item>
 
-              <Form.Item
-                label="Tên người dùng"
-                name="username"
-                rules={[
-                  {
-                    required: true,
-                    message: "Không được bỏ trống Tên người dùng",
-                  },
-                ]}
-              >
-                <InputComponent
-                  value={stateUserDetail.username}
-                  // onChange={handleOnChangeEdit}
-                  name="username"
-                />
-              </Form.Item>
-              <Form.Item
-                label="Mật khẩu"
-                name="password"
-                rules={[
-                  {
-                    required: true,
-                    message: "Không được bỏ trống Mật khẩu",
-                  },
-                ]}
-              >
-                <Input.Password
-                  value={stateUserDetail.password}
-                  // onChange={handleOnChangeEdit}
-                  name="password"
-                />
-              </Form.Item>
-              <Form.Item
-                label="Địa chỉ"
-                name="address"
-                rules={[
-                  {
-                    required: true,
-                    message: "Không được bỏ trống Địa chỉ",
-                  },
-                ]}
-              >
-                <InputComponent
-                  value={stateUserDetail.address}
-                  // onChange={handleOnChangeEdit}
-                  name="address"
-                />
-              </Form.Item>
-              <Form.Item
-                label="Số điện thoại"
-                name="phone"
-                rules={[
-                  {
-                    required: true,
-                    message: "Không được bỏ trống Số điện thoại",
-                  },
-                ]}
-              >
-                <InputComponent
-                  value={stateUserDetail.phone}
-                  // onChange={handleOnChangeEdit}
-                  name="phone"
-                />
-              </Form.Item>
-
-              <Form.Item
-                label="Hình đại diện"
-                name="avatarUrl"
-                valuePropName="fileList"
-                getValueFromEvent={(e) =>
-                  Array.isArray(e) ? e : e && [e.file]
-                }
-              >
-                <Upload
-                  name="avatarUrl"
-                  listType="picture-card"
-                  className="avatar-uploader"
-                  showUploadList={false}
-                // onChange={(e) => handleUploadEdit(e)}
-                >
-                  {/* {downloadURL ? (
-                    <img
-                      src={downloadURL}
-                      alt="avatar"
-                      style={{ width: "100px", height: "100px" }}
-                    />
-                  ) : (
-                    uploadButton
-                  )} */}
-                </Upload>
-              </Form.Item>
-            </Form>
-          </LoadingComponent>
-        </ModalComponent>
 
         <div style={{ marginTop: "20px", width: "75vw" }}>
           <TableComponent
