@@ -24,11 +24,12 @@ namespace Manufa.Controllers
         [HttpPut]
         public IActionResult UpdateBodySize(BodySizeDTO body)
         {
+            
             return Ok(_service.UpdateBodySize(body));
         }
   
 
-  
+
         [HttpDelete]
         public IActionResult DeleteBodySize(int id)
         {

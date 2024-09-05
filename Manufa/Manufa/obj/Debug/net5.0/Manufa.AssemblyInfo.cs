@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Manufa")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cfa684bbb403fd8a936397a9d97499df4bc81c01")]
 [assembly: System.Reflection.AssemblyProductAttribute("Manufa")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Manufa")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
