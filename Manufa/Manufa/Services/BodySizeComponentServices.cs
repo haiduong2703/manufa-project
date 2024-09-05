@@ -54,6 +54,9 @@ namespace Manufa.Services
             
         }
 
+
+
+
         public List<BodySizeDTO> GetAllBodySize(int pageNumber, int pageSize)
         {
             var bodySizes = _context.BodySizeComponent

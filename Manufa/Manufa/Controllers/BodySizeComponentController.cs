@@ -14,6 +14,8 @@ namespace Manufa.Controllers
             _service = service;
         }
 
+        
+
         [HttpPost]
         public IActionResult CreateBodySize(BodySizeDTO body)
         {
