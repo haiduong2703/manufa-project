@@ -18,6 +18,7 @@ import AdminOrder from "../../components/AdminOrder/AdminOrder";
 import ImageUpload from "../../components/UploadFiles/UploadFile";
 import logo from "../../assets/images/logo3.png";
 import Login from "../Login/Login";
+import BodySize from "../../components/BodySize/BodySize";
 
 const Admin = () => {
   const [keySelected, setKeySelected] = useState("");
@@ -34,6 +35,8 @@ const Admin = () => {
 
       case "upload":
         return <ImageUpload />;
+      case "body-size":
+        return <BodySize />;
       case "logout":
         sessionStorage.clear();
         dispatch(removeUser());
@@ -46,8 +49,10 @@ const Admin = () => {
 
   const items = [
     getItem("Quản lý sản phẩm", "product", <ProductOutlined />),
+
     getItem("Nhân viên", "user", <UserOutlined />),
     getItem("Quản lý đơn hàng", "order", <ShoppingCartOutlined />),
+    getItem("Quản lý số đo", "body-size", <ProductOutlined />),
     getItem("Upload", "upload", <ShoppingCartOutlined />),
     getItem("Đăng xuất", "logout", <LogoutOutlined />),
   ];
