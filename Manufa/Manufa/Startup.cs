@@ -42,15 +42,8 @@ namespace Manufa
             });
             services.AddTransient<IAccountServices, AccountServices>();
             services.AddTransient<IBodyComponentServices, BodyComponentServices>();
-<<<<<<< HEAD
             services.AddTransient<IBodySizeComponentServices, BodySizeComponentServices>(); 
-
-
-            
-=======
             services.AddTransient<IMaterialServices, MaterialServices>();
->>>>>>> 8ff0c12b2535e149918eef94128adf3a0451a766
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

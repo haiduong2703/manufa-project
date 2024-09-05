@@ -24,15 +24,10 @@ namespace Manufa.Services
             return new BodySizeResponeDTO
             {
                 Id = newBodySize.Id,
-
-
                 Status = true,
-                
                 Message = "Thêm chỉ số cơ thể thành công"
             };
         }
-
-
 
         public BodySizeResponeDTO DeleteBodySize(int id)
         {
@@ -58,9 +53,6 @@ namespace Manufa.Services
             }
             
         }
-
-
-
 
         public List<BodySizeDTO> GetAllBodySize(int pageNumber, int pageSize)
         {
