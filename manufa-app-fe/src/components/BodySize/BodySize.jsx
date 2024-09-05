@@ -25,6 +25,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Switch } from "antd";
 import { changeStatusUser } from "../../api/user";
 import { getAllUser } from "../../api/account";
+import { getAllBodySize } from '../../api/bodySize';
 const BodySize = () => {
   const [isOpenModalCreate, setIsOpenModalCreate] = useState(false);
   const [isOpenModalEdit, setIsOpenModalEdit] = useState(false);
@@ -50,10 +51,7 @@ const BodySize = () => {
   const [isRowSelected, setIsRowSelected] = useState("");
   const [isNameUser, setIsNameUser] = useState("");
   const [imageUpload, setImageUpload] = useState([]);
-  const [listProduct, setListProduct] = useState([
-    { name: "test1" },
-    { name: "test2" },
-  ]);
+  const [listProduct, setListProduct] = useState([]);
   const [idProduct, setIdProduct] = useState(null);
   const [checkChange, setCheckChange] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -72,7 +70,7 @@ const BodySize = () => {
     },
     {
       title: "Hình ảnh",
-      dataIndex: "hinhAnh",
+      dataIndex: "image",
       render: (avatarUrl) => (
         <Image.PreviewGroup>
           <Image
@@ -91,7 +89,7 @@ const BodySize = () => {
     },
     {
       title: "Tên cơ thể",
-      dataIndex: "tenCoThe",
+      dataIndex: "name",
     },
 
     {
@@ -177,6 +175,19 @@ const BodySize = () => {
     });
   };
 
+
+  const fetchBodySize = async () => {
+    try {
+      const res = await getAllBodySize(1, 10)
+      console.log({ res })
+      setListProduct(res)
+    } catch (error) {
+      console.log({ error })
+    }
+  }
+  useEffect(() => {
+    fetchBodySize()
+  }, [])
   return (
     <div>
       <Header title="Số đo cơ thể" name="Số đo cơ thể" />

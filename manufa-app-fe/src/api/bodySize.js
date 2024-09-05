@@ -2,34 +2,35 @@ import axiosClient from "./axiosClient";
 
 const END_POINT = {
   BODYSIZE: "BodySizeComponent",
+  PORT: 44305,
 };
 
 export const createBodySize = () => {
   return axiosClient.get(
-    `https://localhost:44324/api/${END_POINT.BODYSIZE}/CreateBodySize`
+    `https://localhost:${END_POINT.PORT}/api/${END_POINT.BODYSIZE}/CreateBodySize`
   );
 };
 
 export const updateBodySize = () => {
   return axiosClient.get(
-    `https://localhost:44324/api/${END_POINT.BODYSIZE}/UpdateBodySize`
+    `https://localhost:${END_POINT.PORT}/api/${END_POINT.BODYSIZE}/UpdateBodySize`
   );
 };
 
 export const deleteBodySize = () => {
   return axiosClient.get(
-    `https://localhost:44324/api/${END_POINT.BODYSIZE}/DeleteBodySize`
+    `https://localhost:${END_POINT.PORT}/api/${END_POINT.BODYSIZE}/DeleteBodySize`
   );
 };
 
-export const getAllBodySize = () => {
+export const getAllBodySize = (pageNumber, pageSize) => {
   return axiosClient.get(
-    `https://localhost:44324/api/${END_POINT.BODYSIZE}/GetAllBodySize`
+    `https://localhost:${END_POINT.PORT}/api/${END_POINT.BODYSIZE}/GetAllBodySize?pageNumber=${pageNumber}&pageSize=${pageSize}`
   );
 };
 
 export const getBodySizeById = () => {
   return axiosClient.get(
-    `https://localhost:44324/api/${END_POINT.BODYSIZE}/GetBodySizeById`
+    `https://localhost:${END_POINT.PORT}/api/${END_POINT.BODYSIZE}/GetBodySizeById`
   );
 };
