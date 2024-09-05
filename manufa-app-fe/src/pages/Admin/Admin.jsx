@@ -18,6 +18,7 @@ import AdminOrder from "../../components/AdminOrder/AdminOrder";
 import ImageUpload from "../../components/UploadFiles/UploadFile";
 import logo from "../../assets/images/logo3.png";
 import AdminMaterial from "../../components/AdminMaterial/AdminMaterial";
+import BodySize from "../../components/BodySize/BodySize";
 
 const Admin = () => {
   const [keySelected, setKeySelected] = useState("");
@@ -36,6 +37,8 @@ const Admin = () => {
         return <AdminMaterial />;
       case "upload":
         return <ImageUpload />;
+      case "body-size":
+        return <BodySize />;
       case "logout":
         sessionStorage.clear();
         dispatch(removeUser());
@@ -68,6 +71,7 @@ const Admin = () => {
           "productTemplate",
           <ShoppingCartOutlined />
         ),
+        getItem("Quản lý số đo", "body-size", <ProductOutlined />),
         getItem(
           "Quản lý nguyên vật liệu",
           "material",
