@@ -25,7 +25,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Switch } from "antd";
 import { changeStatusUser } from "../../api/user";
 import { getAllUser } from "../../api/account";
-import { createBodySize, getAllBodySize, getAllComponentType } from '../../api/bodySize';
+import { createBodySize, deleteBodySize, getAllBodySize, getAllComponentType, getBodySizeById, updateBodySize } from '../../api/bodySize';
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebaseConfig";
 
@@ -117,7 +117,7 @@ const BodySize = () => {
         <Space size="middle">
           <Tooltip title="Sửa">
             <EditOutlined
-              // onClick={() => handleGetDetailProduct(record)}
+              onClick={() => handleGetDetailBodySize(record)}
               style={{ cursor: "pointer" }}
             />
           </Tooltip>
@@ -246,6 +246,51 @@ const BodySize = () => {
       );
     }
   };
+
+
+  const handleRemoveBodySize = async (record) => {
+    await deleteBodySize(idProduct)
+      .then((res) => {
+        setIsOpenModalDelete(false);
+        toast.success("Xóa thành công chỉ số cơ thể!", 1000, {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        getAllBodySize();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleGetDetailBodySize = async (record) => {
+    setIsOpenModalEdit(true);
+    await getBodySizeById(record.id).then((res) => {
+      setDownloadURL(res.avatarUrl);
+      console.log(res);
+      setBodySize({
+        id: res.id,
+        name: res.name,
+        typeId: res.typeId,
+        maxSize: res.maxSize,
+        minSize: res.minSize,
+        videoUrl: res.videoUrl,
+        image: res.image,
+      });
+    });
+    // setIsOpenModalEdit(true);
+  };
+
+  const handleUpdateBodySize = async () => {
+    await updateBodySize(bodySize).then((res) => {
+      toast.success("Cập nhập thông tin chỉ số cơ thể thành công!", 1000, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      console.log(res);
+      getAllBodySize();
+      setIsOpenModalEdit(false);
+    });
+  };
+
   return (
     <div>
       <Header title="Số đo cơ thể" name="Số đo cơ thể" />
@@ -398,15 +443,167 @@ const BodySize = () => {
           title="Xóa sản phẩm"
           open={isOpenModalDelete}
           onCancel={() => setIsOpenModalDelete(false)}
-        // onOk={() => {
-        //   handleRemoveProduct(idProduct);
-        // }}
+          onOk={() => {
+            handleRemoveBodySize(idProduct);
+          }}
         >
           <LoadingComponent isLoading={false}>
             <div
               style={{ marginTop: "12px", fontWeight: 600, height: "50px" }}
             >{`Bạn có chắc chắn muốn xóa nhân viên này không này không?`}</div>
           </LoadingComponent>
+        </ModalComponent>
+
+
+        <ModalComponent
+          title="Thông tin số đo cơ thể"
+          open={isOpenModalEdit}
+          onOk={handleUpdateBodySize}
+          onCancel={() => {
+            setIsOpenModalEdit(false);
+            setCheckChange(false);
+            setBodySize({
+              name: null,
+              image: null,
+              videoUrl: null,
+              maxSize: null,
+              minSize: null,
+              typeId: 1,
+
+            });
+            form.resetFields();
+          }}
+          okText="Cập nhật"
+          cancelText="Hủy bỏ"
+        >
+          <Form
+            name="validateOnly" layout="vertical" autoComplete="off" form={form}
+          >
+            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+              <div style={{ width: '70%' }}>
+                <Form.Item
+                  label="Số đo của bộ phận"
+                  name="typeId"
+                  layout="vertical"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Không được bỏ trống số đo của bộ phận",
+                    },
+                  ]}
+                >
+                  <Select
+                    placeholder="Chọn số đo của bộ phận "
+                    filterOption={(input, option) =>
+                      (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+                    }
+                    value={bodySize.typeId}
+                    onChange={handleOnSelect}
+                    options={selectOption}
+                  />
+                </Form.Item>
+
+                <Form.Item
+                  label="Tên số đo"
+                  layout="vertical"
+                  name="name"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Không được bỏ trống Tên người dùng",
+                    },
+                  ]}
+                >
+                  <InputComponent
+                    value={bodySize.name}
+                    onChange={handleOnChange}
+                    name="name"
+                  />
+                </Form.Item>
+              </div>
+              <div>
+                <Upload
+                  name="image"
+                  listType="picture-card"
+                  className="avatar-uploader"
+                  showUploadList={false}
+                  action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
+                  onChange={(e) => handleUpload(e)}
+                // beforeUpload={beforeUpload}
+                // onChange={handleChange}
+                >
+                  {/* {bodySize.image ? <img src={bodySize.image} alt="avatar" style={{ width: '100%' }} /> : uploadButton} */}
+                  {downloadURL ? (
+                    <img
+                      src={downloadURL}
+                      alt="avatar"
+                      style={{ width: "100%" }}
+                    />
+                  ) : (
+                    uploadButton
+                  )}
+                </Upload>
+              </div>
+            </div>
+            <Form.Item
+              label="Video hướng dẫn"
+              layout="vertical"
+
+              name="videoUrl"
+              rules={[
+                {
+                  required: true,
+                  message: "Không được bỏ trống video hướng dẫn",
+                },
+              ]}
+            >
+              <InputComponent
+                value={bodySize.videoUrl}
+                onChange={handleOnChange}
+                name="videoUrl"
+              />
+            </Form.Item>
+            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+              <Form.Item
+                label="Giá trị tối thiểu (cm)"
+                name="minSize"
+                layout="vertical"
+
+                rules={[
+                  {
+                    required: true,
+                    message: "Không được bỏ trống giá trị tối thiểu",
+                  },
+                ]}
+              >
+                <InputComponent
+                  value={bodySize.minSize}
+                  onChange={handleOnChange}
+                  name="minSize"
+                />
+              </Form.Item>
+              <Form.Item
+                label="Giá trị tối đa (cm)"
+                name="maxSize"
+                layout="vertical"
+
+                rules={[
+                  {
+                    required: true,
+                    message: "Không được bỏ trống giá trị tối đa",
+                  },
+                ]}
+              >
+                <InputComponent
+                  value={bodySize.maxSize}
+                  onChange={handleOnChange}
+                  name="maxSize"
+                />
+              </Form.Item>
+            </div>
+
+
+          </Form>
         </ModalComponent>
 
 
