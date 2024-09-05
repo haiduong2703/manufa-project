@@ -25,8 +25,9 @@ namespace Manufa.Services
             {
                 Id = newBodySize.Id,
 
-                
+
                 Status = true,
+                
                 Message = "Thêm chỉ số cơ thể thành công"
             };
         }

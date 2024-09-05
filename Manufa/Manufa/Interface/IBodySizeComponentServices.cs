@@ -8,8 +8,9 @@ namespace Manufa.Interface
         BodySizeResponeDTO CreateBodySize(BodySizeDTO body);
 
         BodySizeResponeDTO UpdateBodySize(BodySizeDTO body);
-        
+
         BodySizeResponeDTO DeleteBodySize(int id);
+        
         List<BodySizeDTO> GetAllBodySize(int pageNumber, int pageSize);
         BodySizeDTO GetBodySizeById(int id);
         

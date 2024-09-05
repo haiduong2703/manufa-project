@@ -19,12 +19,13 @@ namespace Manufa.Controllers
         [HttpPost]
         public IActionResult CreateBodySize(BodySizeDTO body)
         {
+            
             return Ok(_service.CreateBodySize(body));
         }
         [HttpPut]
         public IActionResult UpdateBodySize(BodySizeDTO body)
         {
-            
+
             return Ok(_service.UpdateBodySize(body));
         }
   

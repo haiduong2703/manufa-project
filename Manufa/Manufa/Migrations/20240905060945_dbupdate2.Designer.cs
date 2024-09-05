@@ -3,14 +3,16 @@ using Manufa.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Manufa.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240905060945_dbupdate2")]
+    partial class dbupdate2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,11 +84,11 @@ namespace Manufa.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<int>("MaxSize")
-                        .HasColumnType("int");
+                    b.Property<double>("MaxSize")
+                        .HasColumnType("float");
 
-                    b.Property<int>("MinSize")
-                        .HasColumnType("int");
+                    b.Property<double>("MinSize")
+                        .HasColumnType("float");
 
                     b.Property<string>("Name")
                         .HasMaxLength(50)
@@ -170,10 +172,6 @@ namespace Manufa.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
                     b.Property<int>("TypeId")
                         .HasColumnType("int");
 
@@ -199,7 +197,7 @@ namespace Manufa.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MaterialType");
+                    b.ToTable("materialType");
                 });
 
             modelBuilder.Entity("Manufa.Models.ProductComponent", b =>
