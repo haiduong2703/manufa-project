@@ -14,7 +14,7 @@ namespace Manufa.Controllers
             _service = service;
         }
 
-        
+
 
         [HttpPost]
         public IActionResult CreateBodySize(BodySizeDTO body)
@@ -26,7 +26,9 @@ namespace Manufa.Controllers
         {
             return Ok(_service.UpdateBodySize(body));
         }
+  
 
+  
         [HttpDelete]
         public IActionResult DeleteBodySize(int id)
         {

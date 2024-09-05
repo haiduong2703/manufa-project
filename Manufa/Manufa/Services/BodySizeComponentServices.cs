@@ -29,6 +29,8 @@ namespace Manufa.Services
             };
         }
 
+
+
         public BodySizeResponeDTO DeleteBodySize(int id)
         {
             var bodySize = _context.BodySizeComponent.FirstOrDefault(x => x.Id == id);
