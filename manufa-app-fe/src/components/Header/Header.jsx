@@ -30,7 +30,7 @@ const Header = (props) => {
       </div>
       <div className="container-staff">
         <div className="page-title">
-          <h2>Nhân viên</h2>
+          <h2>{props.title}</h2>
         </div>
         <div className="user-info">
           <span>
