@@ -13,7 +13,7 @@ namespace Manufa.Models
         public int TypeId { get; set; }
         public int MinSize { get; set; }
         public int MaxSize { get; set; }
-
+        public string VideoUrl { get; set; }    
         public virtual ComponentType ComponentType { get; set; }
     }
 }

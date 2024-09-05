@@ -19,6 +19,9 @@ namespace Manufa.Services
             newBodySize.Name = body.Name;
             newBodySize.Image = body.Image;
             newBodySize.TypeId = body.TypeId;
+            newBodySize.MaxSize = body.MaxSize;
+            newBodySize.MinSize = body.MinSize;
+            newBodySize.VideoUrl = body.VideoUrl;
             _context.BodySizeComponent.Add(newBodySize);
             _context.SaveChanges();
             return new BodySizeResponeDTO
@@ -57,17 +60,20 @@ namespace Manufa.Services
         public List<BodySizeDTO> GetAllBodySize(int pageNumber, int pageSize)
         {
             var bodySizes = _context.BodySizeComponent
-        .OrderBy(x => x.Id) 
-        .Skip((pageNumber - 1) * pageSize) 
-        .Take(pageSize) 
-        .Select(x => new BodySizeDTO
-        {
-            Id = x.Id,
-            Name = x.Name,
-            Image = x.Image,
-            TypeId = x.TypeId
-        })
-        .ToList();
+                    .OrderBy(x => x.Id) 
+                    .Skip((pageNumber - 1) * pageSize) 
+                    .Take(pageSize) 
+                    .Select(x => new BodySizeDTO
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        Image = x.Image,
+                        TypeId = x.TypeId,
+                       MinSize = x.MinSize,
+                       MaxSize = x.MaxSize,
+                       VideoUrl = x.VideoUrl,
+                    })
+                    .ToList();
 
             return bodySizes;
         }
@@ -81,7 +87,10 @@ namespace Manufa.Services
                                                 Id = x.Id,
                                                 Name = x.Name,
                                                 Image = x.Image,
-                                                TypeId = x.TypeId
+                                                TypeId = x.TypeId,
+                                                MinSize = x.MinSize,
+                                                MaxSize = x.MaxSize,
+                                                VideoUrl = x.VideoUrl,
                                             })
                                             .FirstOrDefault(); 
 
@@ -96,6 +105,9 @@ namespace Manufa.Services
                 bodySize.Name = body.Name;
                 bodySize.TypeId = body.TypeId;
                 bodySize.Image = body.Image;
+                bodySize.MaxSize = body.MaxSize;
+                bodySize.VideoUrl = body.VideoUrl;
+                bodySize.MinSize = body.MinSize;
                 _context.Update(bodySize);
                 _context.SaveChanges();
                 return new BodySizeResponeDTO
@@ -111,5 +123,20 @@ namespace Manufa.Services
                 Message = "Không tìm thấy"
             };
         }
+
+        public List<ComponentTypeDTOSelect> GetAllComponentType()
+        {
+            var bodySizes = _context.ComponentType
+                       .OrderBy(x => x.Id)
+                       .Select(x => new ComponentTypeDTOSelect
+                       {
+                           Value = x.Id.ToString(),
+                           Label = x.Name
+                       })
+                       .ToList();
+
+            return bodySizes;
+        }
+        
     }
 }

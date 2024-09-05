@@ -25,18 +25,23 @@ import "react-toastify/dist/ReactToastify.css";
 import { Switch } from "antd";
 import { changeStatusUser } from "../../api/user";
 import { getAllUser } from "../../api/account";
-import { getAllBodySize } from '../../api/bodySize';
+import { createBodySize, getAllBodySize, getAllComponentType } from '../../api/bodySize';
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { storage } from "../../firebaseConfig";
+
+
+
 const BodySize = () => {
   const [isOpenModalCreate, setIsOpenModalCreate] = useState(false);
   const [isOpenModalEdit, setIsOpenModalEdit] = useState(false);
   const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
   const [bodySize, setBodySize] = useState({
-    soDoBoPhan: "",
-    tenSoDo: "",
-    imgUrl: "",
+    typeId: "",
+    name: "",
+    image: "",
     videoUrl: "",
-    minValue: "",
-    maxValue: "",
+    minSize: "",
+    maxSize: "",
   });
   const [stateUserDetail, setStateUserDetail] = useState({
     id: "",
@@ -58,7 +63,7 @@ const BodySize = () => {
   const [loading, setLoading] = useState(false);
   const [loadingUploadImg, setLoadingUploadImg] = useState(false);
   const [downloadURL, setDownloadURL] = useState("");
-
+  let toastShownCreate = false;
 
   const columns = [
     {
@@ -98,11 +103,11 @@ const BodySize = () => {
     },
     {
       title: "Giá trị tối thiểu (cm)",
-      dataIndex: "minValue",
+      dataIndex: "minSize",
     },
     {
       title: "Giá trị tối đa (cm)",
-      dataIndex: "maxValue",
+      dataIndex: "maxSize",
     },
 
     {
@@ -133,14 +138,14 @@ const BodySize = () => {
   const [form] = Form.useForm();
   const handleSubmit = async () => {
     console.log(bodySize);
-    // await createUser(bodySize).then((res) => {
-    //   console.log(res);
-    //   getListUser();
-    //   toast.success("Thêm nhân viên thành công!", 1000, {
-    //     position: toast.POSITION.TOP_RIGHT,
-    //   });
-    //   setIsOpenModalCreate(false);
-    // });
+    await createBodySize(bodySize).then((res) => {
+      console.log(res);
+      fetchBodySize();
+      toast.success("Thêm nhân viên thành công!", 1000, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      setIsOpenModalCreate(false);
+    });
     // form.resetFields();
   };
 
@@ -174,6 +179,14 @@ const BodySize = () => {
       [e.target.name]: e.target.value,
     });
   };
+  const handleOnSelect = (value) => {
+    console.log({ value })
+    setBodySize({
+      ...bodySize,
+      typeId: value,
+    });
+  };
+
 
 
   const fetchBodySize = async () => {
@@ -185,9 +198,54 @@ const BodySize = () => {
       console.log({ error })
     }
   }
+  const [selectOption, setSelectOption] = useState([])
+  const fetchComponentType = async () => {
+    try {
+      const res = await getAllComponentType()
+      console.log({ res })
+      setSelectOption(res)
+    } catch (error) {
+      console.log({ error })
+    }
+  }
+
+
   useEffect(() => {
     fetchBodySize()
+    fetchComponentType()
   }, [])
+
+  const handleUpload = (e) => {
+    const file = e.file.originFileObj; // Lấy file từ sự kiện
+    if (file) {
+      const storageRef = ref(storage, `files/${file.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          // Xử lý tiến trình tải lên nếu cần
+        },
+        (error) => {
+          console.error("Upload failed:", error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+            if (!toastShownCreate) {
+              toast.success("Tải ảnh lên thành công!", 1000, {
+                position: toast.POSITION.TOP_RIGHT,
+              });
+              toastShownCreate = true; // Đánh dấu là toast đã được hiển thị
+            }
+            setDownloadURL(url);
+            console.log("File available at", url);
+            setBodySize({ ...bodySize, image: url });
+            // Gửi URL này đến server của bạn để lưu vào SQL Server
+          });
+        }
+      );
+    }
+  };
   return (
     <div>
       <Header title="Số đo cơ thể" name="Số đo cơ thể" />
@@ -213,7 +271,7 @@ const BodySize = () => {
               <div style={{ width: '70%' }}>
                 <Form.Item
                   label="Số đo của bộ phận"
-                  name="soDoBoPhan"
+                  name="typeId"
                   layout="vertical"
                   rules={[
                     {
@@ -222,17 +280,21 @@ const BodySize = () => {
                     },
                   ]}
                 >
-                  <InputComponent
-                    value={bodySize.soDoBoPhan}
-                    onChange={handleOnChange}
-                    name="soDoBoPhan"
+                  <Select
+                    placeholder="Chọn số đo của bộ phận "
+                    filterOption={(input, option) =>
+                      (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+                    }
+                    value={bodySize.typeId}
+                    onChange={handleOnSelect}
+                    options={selectOption}
                   />
                 </Form.Item>
 
                 <Form.Item
                   label="Tên số đo"
                   layout="vertical"
-                  name="tenSoDo"
+                  name="name"
                   rules={[
                     {
                       required: true,
@@ -241,23 +303,33 @@ const BodySize = () => {
                   ]}
                 >
                   <InputComponent
-                    value={bodySize.tenSoDo}
+                    value={bodySize.name}
                     onChange={handleOnChange}
-                    name="tenSoDo"
+                    name="name"
                   />
                 </Form.Item>
               </div>
               <div>
                 <Upload
-                  name="imgUrl"
+                  name="image"
                   listType="picture-card"
                   className="avatar-uploader"
                   showUploadList={false}
                   action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
+                  onChange={(e) => handleUpload(e)}
                 // beforeUpload={beforeUpload}
                 // onChange={handleChange}
                 >
-                  {bodySize.imgUrl ? <img src={bodySize.imgUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+                  {/* {bodySize.image ? <img src={bodySize.image} alt="avatar" style={{ width: '100%' }} /> : uploadButton} */}
+                  {downloadURL ? (
+                    <img
+                      src={downloadURL}
+                      alt="avatar"
+                      style={{ width: "100%" }}
+                    />
+                  ) : (
+                    uploadButton
+                  )}
                 </Upload>
               </div>
             </div>
@@ -282,7 +354,7 @@ const BodySize = () => {
             <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
               <Form.Item
                 label="Giá trị tối thiểu (cm)"
-                name="minValue"
+                name="minSize"
                 layout="vertical"
 
                 rules={[
@@ -293,14 +365,14 @@ const BodySize = () => {
                 ]}
               >
                 <InputComponent
-                  value={bodySize.minValue}
+                  value={bodySize.minSize}
                   onChange={handleOnChange}
-                  name="minValue"
+                  name="minSize"
                 />
               </Form.Item>
               <Form.Item
                 label="Giá trị tối đa (cm)"
-                name="maxValue"
+                name="maxSize"
                 layout="vertical"
 
                 rules={[
@@ -311,9 +383,9 @@ const BodySize = () => {
                 ]}
               >
                 <InputComponent
-                  value={bodySize.maxValue}
+                  value={bodySize.maxSize}
                   onChange={handleOnChange}
-                  name="maxValue"
+                  name="maxSize"
                 />
               </Form.Item>
             </div>

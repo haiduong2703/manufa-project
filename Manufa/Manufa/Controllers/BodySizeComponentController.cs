@@ -42,6 +42,13 @@ namespace Manufa.Controllers
         {
             return Ok(_service.GetAllBodySize(pageNumber, pageSize));
         }
+
+        [HttpGet]
+        public IActionResult GetAllComponentType()
+        {
+            return Ok(_service.GetAllComponentType());
+        }
+
         [HttpGet]
         public IActionResult GetBodySizeById(int id)
         {
