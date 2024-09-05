@@ -26,7 +26,10 @@ const DetailModal = ({ isVisible, handleCancel, idView }) => {
     };
     await getAllOrder(data).then((res) => {
       console.log(res);
-      setOrder(res[0]);
+      if (res && res.length > 0) {
+
+        setOrder(res[0]);
+      }
     });
   };
   useEffect(() => {

@@ -13,10 +13,10 @@ const Login = () => {
     e.preventDefault(); // Ngăn form submit
     console.log(username);
     await getUserByLogin(username, password).then((res) => {
-      if (res.checkPass !== false) {
+      if (res?.checkPass !== false) {
         console.log(res);
-        sessionStorage.setItem("name", res.name);
-        sessionStorage.setItem("checklogin", res.checkPass);
+        sessionStorage.setItem("name", res?.name);
+        sessionStorage.setItem("checklogin", res?.checkPass);
         //sessionStorage.setItem("username",res.username);
         history.push("/admin");
       }
