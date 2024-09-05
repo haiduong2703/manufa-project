@@ -6245,11 +6245,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\CodeThue\\Manufa\\Manufa\\Manufa.csproj",
+      "projectUniqueName": "C:\\Users\\DuongNguyen\\Máy tính\\manufa-project\\Manufa\\Manufa\\Manufa.csproj",
       "projectName": "Manufa",
-      "projectPath": "D:\\CodeThue\\Manufa\\Manufa\\Manufa.csproj",
+      "projectPath": "C:\\Users\\DuongNguyen\\Máy tính\\manufa-project\\Manufa\\Manufa\\Manufa.csproj",
       "packagesPath": "C:\\Users\\DuongNguyen\\.nuget\\packages\\",
-      "outputPath": "D:\\CodeThue\\Manufa\\Manufa\\obj\\",
+      "outputPath": "C:\\Users\\DuongNguyen\\Máy tính\\manufa-project\\Manufa\\Manufa\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

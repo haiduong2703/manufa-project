@@ -17,13 +17,14 @@ import { useDispatch, useSelector } from "react-redux";
 import AdminOrder from "../../components/AdminOrder/AdminOrder";
 import ImageUpload from "../../components/UploadFiles/UploadFile";
 import logo from "../../assets/images/logo3.png";
-import Login from "../Login/Login";
+import AdminMaterial from "../../components/AdminMaterial/AdminMaterial";
 import BodySize from "../../components/BodySize/BodySize";
 
 const Admin = () => {
   const [keySelected, setKeySelected] = useState("");
   const dispatch = useDispatch();
   const history = useHistory();
+  const role = sessionStorage.getItem("role");
   const renderKey = (key) => {
     switch (key) {
       case "user":
@@ -32,7 +33,8 @@ const Admin = () => {
         return <AdminProduct />;
       case "order":
         return <AdminOrder />;
-
+      case "material":
+        return <AdminMaterial />;
       case "upload":
         return <ImageUpload />;
       case "body-size":
@@ -47,15 +49,52 @@ const Admin = () => {
     }
   };
 
-  const items = [
-    getItem("Quản lý sản phẩm", "product", <ProductOutlined />),
+  const getMenuItemsByRole = (role) => {
+    let menuItems = [
+      getItem("Đăng xuất", "logout", <LogoutOutlined />), // Menu cho tất cả user
+      getItem("Thống kê sản xuất", "sx", <LogoutOutlined />),
+      getItem("Thống kê nguyên vật liệu", "vl", <LogoutOutlined />),
+      getItem("Thống kê sản phẩm", "sp", <LogoutOutlined />),
+    ];
 
-    getItem("Nhân viên", "user", <UserOutlined />),
-    getItem("Quản lý đơn hàng", "order", <ShoppingCartOutlined />),
-    getItem("Quản lý số đo", "body-size", <ProductOutlined />),
-    getItem("Upload", "upload", <ShoppingCartOutlined />),
-    getItem("Đăng xuất", "logout", <LogoutOutlined />),
-  ];
+    if (role === "admin") {
+      menuItems = [
+        getItem("Nhân viên", "user", <UserOutlined />),
+        getItem("Quản lý sản phẩm", "product", <ProductOutlined />),
+        ...menuItems,
+      ];
+    } else if (role === "manager") {
+      menuItems = [
+        getItem("Quản lý sản phẩm", "product", <ProductOutlined />),
+        getItem(
+          "Quản lý sản phẩm mẫu",
+          "productTemplate",
+          <ShoppingCartOutlined />
+        ),
+        getItem("Quản lý số đo", "body-size", <ProductOutlined />),
+        getItem(
+          "Quản lý nguyên vật liệu",
+          "material",
+          <ShoppingCartOutlined />
+        ),
+        ...menuItems,
+      ];
+    } else if (role === "staff") {
+      menuItems = [
+        getItem("Quản lý đơn hàng", "order", <ShoppingCartOutlined />),
+        ...menuItems,
+      ];
+    } else if (role === "user") {
+      menuItems = [
+        getItem("Thông báo", "notification", <ContactsOutlined />),
+        ...menuItems,
+      ];
+    }
+
+    return menuItems;
+  };
+
+  const items = getMenuItemsByRole(role);
 
   const handleClick = ({ item, key }) => {
     setKeySelected(key);
