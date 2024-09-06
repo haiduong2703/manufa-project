@@ -5,6 +5,7 @@ namespace Manufa.DTO
         public int Id { get; set; }
         public string Name { get; set; }    
         public int TypeId { get; set; }
+        public string? SoDoBoPhan { get; set; }
         public string Image {  get; set; }
         public int MinSize { get; set; }
         public int MaxSize { get; set; }

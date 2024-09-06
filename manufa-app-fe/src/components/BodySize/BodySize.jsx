@@ -99,7 +99,7 @@ const BodySize = () => {
 
     {
       title: "Clip hướng dẫn",
-      dataIndex: "clipHuongDan",
+      dataIndex: "videoUrl",
     },
     {
       title: "Giá trị tối thiểu (cm)",
